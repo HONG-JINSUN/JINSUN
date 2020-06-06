@@ -273,9 +273,7 @@ public class MemberTest extends WindowAdapter {
 						lb6.setText("조회 되었습니다.");
 					}
 
-					String s;
-					int number = 1;
-					ta.setText("");
+					String[][] table = new String[list2.size()][7];
 					for (int i = 0; i < list2.size(); i++) {
 						MemberVo data2 = (MemberVo) list2.get(i);
 						String GROUP_NAME = data2.getGROUP_NAME();
@@ -285,57 +283,36 @@ public class MemberTest extends WindowAdapter {
 						String TAG = data2.getTAG();
 						String ADDRESS = data2.getADDRESS();
 						String NEWADDRESS = data2.getNEWADDRESS();
+						String iUN = Integer.toString(UNIQUE_NUMBER);
 
-						String n = ta.getText();
-						s = number++ + ". " + NAME + " ( 고유번호 : " + UNIQUE_NUMBER + " )" + "\n" + "분류 : " + GROUP_NAME
-								+ "\n" + "전화번호 : " + PHONE_NUMBER + "\n" + "주소 : " + ADDRESS + "\n" + "새 주소 : "
-								+ NEWADDRESS + "\n" + "키워드 : " + TAG;
-						ta.setText(n + s + "\n" + "\n");
+						for (int j = 0; j < 7; j++) {
+							if (j == 0) {
+								table[i][j] = GROUP_NAME;
+							} else if (j == 1) {
+								table[i][j] = iUN;
+							} else if (j == 2) {
+								table[i][j] = NAME;
+							} else if (j == 3) {
+								table[i][j] = PHONE_NUMBER;
+							} else if (j == 4) {
+								table[i][j] = ADDRESS;
+							} else if (j == 5) {
+								table[i][j] = NEWADDRESS;
+							} else if (j == 6) {
+								table[i][j] = TAG;
+							}
+						}
 
 					}
+					String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
+					DefaultTableModel model = new DefaultTableModel(table, header);
+					JTable tb = new JTable(model);
+					JScrollPane scroll = new JScrollPane(tb);
+					scroll.setBounds(550, 300, 500, 200);
+					f.add(scroll);
 				}
 			}
 		});
-
-		ArrayList<MemberVo> list2 = dao.list2(sc2.getText());
-
-		String[][] table = new String[list2.size()][7];
-		for (int i = 0; i < list2.size(); i++) {
-			MemberVo data2 = (MemberVo) list2.get(i);
-			String GROUP_NAME = data2.getGROUP_NAME();
-			int UNIQUE_NUMBER = data2.getUNIQUE_NUMBER();
-			String NAME = data2.getNAME();
-			String PHONE_NUMBER = data2.getPHONE_NUMBER();
-			String TAG = data2.getTAG();
-			String ADDRESS = data2.getADDRESS();
-			String NEWADDRESS = data2.getNEWADDRESS();
-			String iUN = Integer.toString(UNIQUE_NUMBER);
-
-			for (int j = 0; j < 7; j++) {
-				if (j == 0) {
-					table[i][j] = GROUP_NAME;
-				} else if (j == 1) {
-					table[i][j] = iUN;
-				} else if (j == 2) {
-					table[i][j] = NAME;
-				} else if (j == 3) {
-					table[i][j] = PHONE_NUMBER;
-				} else if (j == 4) {
-					table[i][j] = ADDRESS;
-				} else if (j == 5) {
-					table[i][j] = NEWADDRESS;
-				} else if (j == 6) {
-					table[i][j] = TAG;
-				}
-			}
-
-		}
-
-		String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
-		DefaultTableModel model = new DefaultTableModel(table, header);
-		JTable tb = new JTable(model);
-		JScrollPane scroll = new JScrollPane(tb);
-		scroll.setBounds(550, 300, 500, 200);
 
 		f.add(lb3);
 		f.add(cb);
@@ -355,7 +332,6 @@ public class MemberTest extends WindowAdapter {
 		f.add(ta);
 		f.add(p);
 		f.add(lb6);
-		f.add(scroll);
 		f.setVisible(true);
 
 	}
