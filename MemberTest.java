@@ -19,6 +19,10 @@ public class MemberTest extends WindowAdapter {
 	static JTextField sc, sc2;
 	static JButton btn, btn2;
 	static Panel p;
+	static String[][] table;
+	static JScrollPane scroll;
+	static DefaultTableModel model;
+	static JTable tb, tb2;
 
 	public static void main(String[] args) {
 		dao = new MemberDAO();
@@ -109,21 +113,19 @@ public class MemberTest extends WindowAdapter {
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lb6.setText("");
-
+								
 				String A = ci.getSelectedItem().toString();
 				String B = ci2.getSelectedItem().toString();
-
+				
 				if (cb.getState()) {
 					if (A.equals("서울")) {
-
-						ArrayList<MemberVo> list = dao.list(sc.getText());
-
-						String s;
-						int number = 1;
-						ta.setText("");
-						for (int i = 0; i < list.size(); i++) {
-							MemberVo data = (MemberVo) list.get(i);
+						if (B.equals("시군구 선택")) {
+							B = "";
+						}
+						ArrayList<MemberVo> f_list = dao.f_list(sc.getText(), B);
+						table = new String[f_list.size()][7];
+						for (int i = 0; i < f_list.size(); i++) {
+							MemberVo data = (MemberVo) f_list.get(i);
 							String GROUP_NAME = data.getGROUP_NAME();
 							int UNIQUE_NUMBER = data.getUNIQUE_NUMBER();
 							String NAME = data.getNAME();
@@ -131,25 +133,44 @@ public class MemberTest extends WindowAdapter {
 							String TAG = data.getTAG();
 							String ADDRESS = data.getADDRESS();
 							String NEWADDRESS = data.getNEWADDRESS();
+							String iUN = Integer.toString(UNIQUE_NUMBER);
 
-							if (ADDRESS.contains(B)) {
-
-								String n = ta.getText();
-								s = number++ + ". " + NAME + " ( 고유번호 : " + UNIQUE_NUMBER + " )" + "\n" + "분류 : "
-										+ GROUP_NAME + "\n" + "전화번호 : " + PHONE_NUMBER + "\n" + "주소 : " + ADDRESS + "\n"
-										+ "새 주소 : " + NEWADDRESS + "\n" + "키워드 : " + TAG;
-								ta.setText(n + s + "\n" + "\n");
+							for (int j = 0; j < 7; j++) {
+								if (j == 0) {
+									table[i][j] = GROUP_NAME;
+									System.out.println(GROUP_NAME);
+								} else if (j == 1) {
+									table[i][j] = iUN;
+								} else if (j == 2) {
+									table[i][j] = NAME;
+								} else if (j == 3) {
+									table[i][j] = PHONE_NUMBER;
+								} else if (j == 4) {
+									table[i][j] = ADDRESS;
+								} else if (j == 5) {
+									table[i][j] = NEWADDRESS;
+								} else if (j == 6) {
+									table[i][j] = TAG;
+								}
 							}
 						}
 
-					} else {
-						ArrayList<MemberVo> list = dao.list(sc.getText());
-
-						String s;
-						int number = 1;
-						ta.setText("");
-						for (int i = 0; i < list.size(); i++) {
-							MemberVo data = (MemberVo) list.get(i);
+						String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
+						model = new DefaultTableModel(table, header);
+						tb2 = new JTable(model);
+						scroll = new JScrollPane(tb2);
+						scroll.setBounds(35, 266, 500, 245);
+						f.add(scroll);
+					}
+				} else if (cb2.getState()) {
+					if (A.equals("서울")) {
+						if (B.equals("시군구 선택")) {
+							B = "";
+						}
+						ArrayList<MemberVo> m_list = dao.m_list(sc.getText(), B);
+						table = new String[m_list.size()][7];
+						for (int i = 0; i < m_list.size(); i++) {
+							MemberVo data = (MemberVo) m_list.get(i);
 							String GROUP_NAME = data.getGROUP_NAME();
 							int UNIQUE_NUMBER = data.getUNIQUE_NUMBER();
 							String NAME = data.getNAME();
@@ -157,99 +178,35 @@ public class MemberTest extends WindowAdapter {
 							String TAG = data.getTAG();
 							String ADDRESS = data.getADDRESS();
 							String NEWADDRESS = data.getNEWADDRESS();
+							String iUN = Integer.toString(UNIQUE_NUMBER);
 
-							String n = ta.getText();
-							s = number++ + ". " + NAME + " ( 고유번호 : " + UNIQUE_NUMBER + " )" + "\n" + "분류 : "
-									+ GROUP_NAME + "\n" + "전화번호 : " + PHONE_NUMBER + "\n" + "주소 : " + ADDRESS + "\n"
-									+ "새 주소 : " + NEWADDRESS + "\n" + "키워드 : " + TAG;
-							ta.setText(n + s + "\n" + "\n");
+							for (int j = 0; j < 7; j++) {
+								if (j == 0) {
+									table[i][j] = GROUP_NAME;
+								} else if (j == 1) {
+									table[i][j] = iUN;
+								} else if (j == 2) {
+									table[i][j] = NAME;
+								} else if (j == 3) {
+									table[i][j] = PHONE_NUMBER;
+								} else if (j == 4) {
+									table[i][j] = ADDRESS;
+								} else if (j == 5) {
+									table[i][j] = NEWADDRESS;
+								} else if (j == 6) {
+									table[i][j] = TAG;
+								}
+							}
 						}
-
-					}
-
-				} else if (cb2.getState()) {
-
-					ArrayList<MemberVo> list = dao.list(sc.getText());
-
-					String s;
-					int number = 1;
-					ta.setText("");
-					for (int i = 0; i < list.size(); i++) {
-						MemberVo data = (MemberVo) list.get(i);
-						String GROUP_NAME = data.getGROUP_NAME();
-						int UNIQUE_NUMBER = data.getUNIQUE_NUMBER();
-						String NAME = data.getNAME();
-						String PHONE_NUMBER = data.getPHONE_NUMBER();
-						String TAG = data.getTAG();
-						String ADDRESS = data.getADDRESS();
-						String NEWADDRESS = data.getNEWADDRESS();
-
-						if (GROUP_NAME.equals("명소")) {
-
-							String n = ta.getText();
-							s = number++ + ". " + NAME + " ( 고유번호 : " + UNIQUE_NUMBER + " )" + "\n" + "분류 : "
-									+ GROUP_NAME + "\n" + "전화번호 : " + PHONE_NUMBER + "\n" + "주소 : " + ADDRESS + "\n"
-									+ "새 주소 : " + NEWADDRESS + "\n" + "키워드 : " + TAG;
-							ta.setText(n + s + "\n" + "\n");
-						}
-
-					}
-				} else if (cb3.getState()) {
-
-					ArrayList<MemberVo> list = dao.list(sc.getText());
-
-					String s;
-					int number = 1;
-					ta.setText("");
-					for (int i = 0; i < list.size(); i++) {
-						MemberVo data = (MemberVo) list.get(i);
-						String GROUP_NAME = data.getGROUP_NAME();
-						int UNIQUE_NUMBER = data.getUNIQUE_NUMBER();
-						String NAME = data.getNAME();
-						String PHONE_NUMBER = data.getPHONE_NUMBER();
-						String TAG = data.getTAG();
-						String ADDRESS = data.getADDRESS();
-						String NEWADDRESS = data.getNEWADDRESS();
-
-						if (GROUP_NAME.equals("맛집")) {
-
-							String n = ta.getText();
-							s = number++ + ". " + NAME + " ( 고유번호 : " + UNIQUE_NUMBER + " )" + "\n" + "분류 : "
-									+ GROUP_NAME + "\n" + "전화번호 : " + PHONE_NUMBER + "\n" + "주소 : " + ADDRESS + "\n"
-									+ "새 주소 : " + NEWADDRESS + "\n" + "키워드 : " + TAG;
-							ta.setText(n + s + "\n" + "\n");
-						}
-					}
-
-				} else if (cb4.getState()) {
-
-					ArrayList<MemberVo> list = dao.list(sc.getText());
-
-					String s;
-					int number = 1;
-					ta.setText("");
-					for (int i = 0; i < list.size(); i++) {
-						MemberVo data = (MemberVo) list.get(i);
-						String GROUP_NAME = data.getGROUP_NAME();
-						int UNIQUE_NUMBER = data.getUNIQUE_NUMBER();
-						String NAME = data.getNAME();
-						String PHONE_NUMBER = data.getPHONE_NUMBER();
-						String TAG = data.getTAG();
-						String ADDRESS = data.getADDRESS();
-						String NEWADDRESS = data.getNEWADDRESS();
-
-						if (GROUP_NAME.equals("쇼핑")) {
-
-							String n = ta.getText();
-							s = number++ + ". " + NAME + " ( 고유번호 : " + UNIQUE_NUMBER + " )" + "\n" + "분류 : "
-									+ GROUP_NAME + "\n" + "전화번호 : " + PHONE_NUMBER + "\n" + "주소 : " + ADDRESS + "\n"
-									+ "새 주소 : " + NEWADDRESS + "\n" + "키워드 : " + TAG;
-							ta.setText(n + s + "\n" + "\n");
-						}
+						String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
+						model = new DefaultTableModel(table, header);
+						JTable tb = new JTable(model);
+						scroll = new JScrollPane(tb);
+						scroll.setBounds(35, 266, 500, 245);
+						f.add(scroll);
 					}
 
 				}
-
 			}
 		});
 
@@ -258,12 +215,12 @@ public class MemberTest extends WindowAdapter {
 			public void actionPerformed(ActionEvent e) {
 				lb6.setText("");
 
+				ArrayList<MemberVo> list2 = dao.list2(sc2.getText());
+
 				if (sc2.getText().equals("")) {
 					lb6.setForeground(Color.red);
 					lb6.setText("키워드를 입력하세요.");
 				} else {
-
-					ArrayList<MemberVo> list2 = dao.list2(sc2.getText());
 
 					if (list2.size() == 0) {
 						lb6.setForeground(Color.red);
@@ -273,7 +230,7 @@ public class MemberTest extends WindowAdapter {
 						lb6.setText("조회 되었습니다.");
 					}
 
-					String[][] table = new String[list2.size()][7];
+					table = new String[list2.size()][7];
 					for (int i = 0; i < list2.size(); i++) {
 						MemberVo data2 = (MemberVo) list2.get(i);
 						String GROUP_NAME = data2.getGROUP_NAME();
@@ -302,13 +259,12 @@ public class MemberTest extends WindowAdapter {
 								table[i][j] = TAG;
 							}
 						}
-
 					}
 					String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
-					DefaultTableModel model = new DefaultTableModel(table, header);
-					JTable tb = new JTable(model);
-					JScrollPane scroll = new JScrollPane(tb);
-					scroll.setBounds(550, 300, 500, 200);
+					model = new DefaultTableModel(table, header);
+					tb = new JTable(model);
+					scroll = new JScrollPane(tb);
+					scroll.setBounds(35, 266, 500, 245);
 					f.add(scroll);
 				}
 			}
@@ -329,7 +285,6 @@ public class MemberTest extends WindowAdapter {
 		f.add(sc2);
 		f.add(btn2);
 		f.add(lb5);
-		f.add(ta);
 		f.add(p);
 		f.add(lb6);
 		f.setVisible(true);
