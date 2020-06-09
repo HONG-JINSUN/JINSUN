@@ -37,10 +37,10 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
 	JPanel P, p2;
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
-	JTextField tf, tf2, tf3, tf4, tf5, tf6, tf7, sc, sc2;
+	JTextField tf, tf2, tf3, tf4, tf5, tf6, tf7, sc, sc2, sc3;
 	JFrame f, f2;
 	JButton btn, btn2;
-	JLabel llb, llb2, llb3, llb4, llb5, llb6;
+	JLabel llb, llb2, llb3, llb4, llb5, llb6, llb7;
 	Checkbox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
 
@@ -123,6 +123,12 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		sc.setBounds(120, 125, 100, 20);
 		sc2 = new JTextField(10);
 		sc2.setBounds(120, 163, 100, 20);
+		llb7 = new JLabel("선택된 값", Label.RIGHT);
+		llb7.setBounds(100, 230, 60, 20);
+		sc3 = new JTextField();
+		sc3.setEditable(false);
+		sc3.setBounds(170, 230, 170, 20);
+		sc3.setText(F);
 
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
@@ -167,6 +173,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.add(llb5);
 		f.add(p2);
 		f.add(llb6);
+		f.add(llb7);
+		f.add(sc3);
 
 		P = new JPanel();
 		lb = new JLabel("분류", JLabel.CENTER);
@@ -371,11 +379,15 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
+	String F = "";
 
 	public void mouseClicked(MouseEvent me) {
 
 		int row = table.getSelectedRow();
-			System.out.println(table.getModel().getValueAt(row, 2) + "\t");
+//			System.out.println(table.getModel().getValueAt(row, 2) + "\t");
+			F = (String) table.getModel().getValueAt(row, 2);
+			sc3.setText(F);
+			
 			
 
 	}
