@@ -26,10 +26,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Test extends JFrame implements ActionListener, MouseListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	DefaultTableModel model;
 	JTable table;
 	JScrollPane js;
