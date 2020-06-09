@@ -6,14 +6,14 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,8 +24,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class Test extends JFrame implements ActionListener {
+public class Test extends JFrame implements ActionListener, MouseListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	DefaultTableModel model;
 	JTable table;
 	JScrollPane js;
@@ -47,7 +51,7 @@ public class Test extends JFrame implements ActionListener {
 	Test() {
 
 		f = new JFrame();
-		f.setSize(1080, 570);
+		f.setBounds(50, 50, 1080, 570);
 		f.getContentPane().setBackground(Color.getHSBColor(0.0f, 20.0f, 40.0f));
 		f.setLayout(null);
 		f.addWindowListener(new WindowAdapter() {
@@ -214,6 +218,7 @@ public class Test extends JFrame implements ActionListener {
 		tf5.addActionListener(this);
 		tf6.addActionListener(this);
 		tf7.addActionListener(this);
+		table.addMouseListener(this);
 
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -278,7 +283,7 @@ public class Test extends JFrame implements ActionListener {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection(url, user, password);
-			System.out.println("立加");
+//			System.out.println("立加");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -306,7 +311,7 @@ public class Test extends JFrame implements ActionListener {
 
 				String sql = "SELECT * FROM SEOULINFO LEFT OUTER join SEOULADD USING ( UNIQUE_NUMBER ) WHERE NAME LIKE '%"
 						+ C + "%' AND ADDRESS LIKE '%" + B + "%' AND TAG LIKE '%" + D + "%' ORDER BY 1";
-				System.out.println(sql);
+//				System.out.println(sql);
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
@@ -318,7 +323,7 @@ public class Test extends JFrame implements ActionListener {
 				String sql = "SELECT * FROM SEOULINFO LEFT OUTER join SEOULADD USING ( UNIQUE_NUMBER )"
 						+ " WHERE GROUP_NAME = '疙家' AND NAME LIKE '%" + C + "%' AND ADDRESS LIKE '%" + B
 						+ "%' AND TAG LIKE '%" + D + "%' ORDER BY 1";
-				System.out.println(sql);
+//				System.out.println(sql);
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
@@ -330,7 +335,7 @@ public class Test extends JFrame implements ActionListener {
 				String sql = "SELECT * FROM SEOULINFO LEFT OUTER join SEOULADD USING ( UNIQUE_NUMBER )"
 						+ " WHERE GROUP_NAME = '咐笼' AND NAME LIKE '%" + C + "%' AND ADDRESS LIKE '%" + B
 						+ "%' AND TAG LIKE '%" + D + "%' ORDER BY 1";
-				System.out.println(sql);
+//				System.out.println(sql);
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
@@ -342,7 +347,7 @@ public class Test extends JFrame implements ActionListener {
 				String sql = "SELECT * FROM SEOULINFO LEFT OUTER join SEOULADD USING ( UNIQUE_NUMBER )"
 						+ " WHERE GROUP_NAME = '碱俏' AND NAME LIKE '%" + C + "%' AND ADDRESS LIKE '%" + B
 						+ "%' AND TAG LIKE '%" + D + "%' ORDER BY 1";
-				System.out.println(sql);
+//				System.out.println(sql);
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
@@ -364,6 +369,30 @@ public class Test extends JFrame implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public void mouseClicked(MouseEvent me) {
+
+		int row = table.getSelectedRow();
+			System.out.println(table.getModel().getValueAt(row, 2) + "\t");
+			
+
+	}
+
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	public void mouseExited(MouseEvent e) {
 
 	}
 
