@@ -1,4 +1,5 @@
 import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
@@ -35,8 +36,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
 	JTextField tf, tf2, tf3, tf4, tf5, tf6, tf7, sc, sc2, sc3;
 	JFrame f, f2;
-	JButton btn, btn2;
-	JLabel llb, llb2, llb3, llb4, llb5, llb6, llb7;
+	JButton btn, btn2, btn3;
+	JLabel llb, llb2, llb3, llb4, llb5, llb6;
 	Checkbox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
 
@@ -46,7 +47,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 
 	Test() {
 
-		f = new JFrame();
+		f = new JFrame("서울 관광정보 서비스");
 		f.setBounds(50, 50, 1080, 570);
 		f.getContentPane().setBackground(Color.getHSBColor(0.0f, 20.0f, 40.0f));
 		f.setLayout(null);
@@ -60,13 +61,14 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		llb3.setBounds(27, 50, 70, 40);
 		Font yellow = new Font("", Font.BOLD, 10);
 		llb3.setFont(yellow);
-		cb = new Checkbox("전체", true);
+		CheckboxGroup group1 = new CheckboxGroup();
+		cb = new Checkbox("전체", group1, true);
 		cb.setBounds(121, 50, 50, 40);
-		cb2 = new Checkbox("명소");
+		cb2 = new Checkbox("명소", group1, true);
 		cb2.setBounds(171, 50, 50, 40);
-		cb3 = new Checkbox("맛집");
+		cb3 = new Checkbox("맛집", group1, true);
 		cb3.setBounds(221, 50, 50, 40);
-		cb4 = new Checkbox("쇼핑");
+		cb4 = new Checkbox("쇼핑", group1, true);
 		cb4.setBounds(271, 50, 50, 40);
 		llb4 = new JLabel("지역 분류");
 		llb4.setFont(yellow);
@@ -107,7 +109,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		llb6 = new JLabel("", Label.LEFT);
 		llb6.setBounds(118, 185, 180, 40);
 		llb5 = new JLabel("검색결과", Label.RIGHT);
-		llb5.setBounds(27, 230, 80, 20);
+		llb5.setBounds(27, 240, 80, 20);
 		llb5.setFont(yellow);
 		llb = new JLabel("검색 ", Label.RIGHT);
 		llb.setFont(yellow);
@@ -119,20 +121,20 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		sc.setBounds(120, 125, 100, 20);
 		sc2 = new JTextField(10);
 		sc2.setBounds(120, 163, 100, 20);
-		llb7 = new JLabel("선택된 값", Label.RIGHT);
-		llb7.setBounds(100, 230, 60, 20);
 		sc3 = new JTextField();
 		sc3.setEditable(false);
-		sc3.setBounds(170, 230, 170, 20);
+		sc3.setBounds(240, 240, 200, 20);
 		sc3.setText(F);
 
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
-		p2.setBounds(360, 50, 170, 170);
+		p2.setBounds(350, 40, 190, 170);
 		btn = new JButton("검색");
 		btn.setBounds(223, 124, 60, 20);
 		btn2 = new JButton("검색");
 		btn2.setBounds(223, 162, 60, 20);
+		btn3 = new JButton("상세보기");
+		btn3.setBounds(450, 240, 90, 20);
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +171,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.add(llb5);
 		f.add(p2);
 		f.add(llb6);
-		f.add(llb7);
+		f.add(btn3);
 		f.add(sc3);
 
 		P = new JPanel();
@@ -206,7 +208,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		model = new DefaultTableModel(ob, header);
 		table = new JTable(model);
 		js = new JScrollPane(table);
-		js.setBounds(30, 270, 500, 230);
+		js.setBounds(20, 270, 520, 245);
 		f.add(js);
 
 //		this.add("Center", js);
