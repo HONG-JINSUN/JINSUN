@@ -49,13 +49,13 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	DefaultTableModel model;
 	JTable table;
 	JScrollPane js;
-	Object ob[][] = new Object[0][7];
-	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
+	Object ob[][] = new Object[0][6];
+	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "키워드" };
 	JPanel P, p2, background;
-	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
-	JTextField tf, tf2, tf3, tf4, tf5, tf6, tf7, sc, sc2, sc3;
+	JLabel lb, lb2, lb3, lb4, lb5, lb6;
+	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3;
 	JFrame f, f2;
-	JButton btn, btn2, btn3;
+	JButton btn, btn2, btn3, btn4;
 	JLabel llb, llb2, llb3, llb4, llb5, llb6;
 	JCheckBox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
@@ -77,19 +77,19 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		});
 
 		llb3 = new JLabel("서비스 분류", Label.RIGHT);
-		llb3.setBounds(27, 50, 70, 40);
+		llb3.setBounds(100, 150, 70, 40);
 		Font yellow = new Font("", Font.BOLD, 10);
 		llb3.setFont(yellow);
 
 		ButtonGroup group1 = new ButtonGroup();
 		cb = new JCheckBox("전체", true);
-		cb.setBounds(121, 50, 50, 40);
+		cb.setBounds(200, 150, 50, 40);
 		cb2 = new JCheckBox("명소", false);
-		cb2.setBounds(171, 50, 50, 40);
+		cb2.setBounds(250, 150, 50, 40);
 		cb3 = new JCheckBox("맛집", false);
-		cb3.setBounds(221, 50, 50, 40);
+		cb3.setBounds(300, 150, 50, 40);
 		cb4 = new JCheckBox("쇼핑", false);
-		cb4.setBounds(271, 50, 50, 40);
+		cb4.setBounds(350, 150, 50, 40);
 
 		group1.add(cb);
 		group1.add(cb2);
@@ -101,15 +101,15 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		cb3.setOpaque(false);
 		cb4.setOpaque(false);
 
-		llb4 = new JLabel("지역 분류");
+		llb4 = new JLabel("지역 분류", Label.RIGHT);
 		llb4.setFont(yellow);
-		llb4.setBounds(26, 82, 70, 40);
+		llb4.setBounds(100, 190, 70, 40);
 		ci = new Choice();
-		ci.setBounds(120, 90, 80, 40);
+		ci.setBounds(200, 200, 80, 40);
 //		ci.add("지역선택");
 		ci.add("서울");
 		ci2 = new Choice();
-		ci2.setBounds(210, 90, 100, 40);
+		ci2.setBounds(285, 200, 100, 40);
 		ci2.add("시군구 선택");
 		ci2.add("강남구");
 		ci2.add("강동구");
@@ -140,32 +140,34 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		llb6 = new JLabel("", Label.LEFT);
 		llb6.setBounds(118, 185, 180, 40);
 		llb5 = new JLabel("검색결과", Label.RIGHT);
-		llb5.setBounds(27, 240, 80, 20);
+		llb5.setBounds(505, 60, 80, 20);
 		llb5.setFont(yellow);
 		llb = new JLabel("검색 ", Label.RIGHT);
 		llb.setFont(yellow);
-		llb.setBounds(27, 112, 50, 50);
+		llb.setBounds(100, 235, 50, 50);
 		llb2 = new JLabel("키워드 검색 ", Label.RIGHT);
 		llb2.setFont(yellow);
-		llb2.setBounds(27, 145, 80, 50);
+		llb2.setBounds(100, 285, 80, 50);
 		sc = new JTextField(10);
-		sc.setBounds(120, 125, 100, 20);
+		sc.setBounds(200, 250, 100, 20);
 		sc2 = new JTextField(10);
-		sc2.setBounds(120, 163, 100, 20);
+		sc2.setBounds(200, 300, 100, 20);
 		sc3 = new JTextField();
 		sc3.setEditable(false);
-		sc3.setBounds(240, 240, 200, 20);
+		sc3.setBounds(720, 60, 200, 20);
 		sc3.setText(F);
 
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
 		p2.setBounds(350, 40, 190, 170);
 		btn = new JButton("검색");
-		btn.setBounds(223, 124, 60, 20);
+		btn.setBounds(305, 250, 60, 20);
 		btn2 = new JButton("검색");
-		btn2.setBounds(223, 162, 60, 20);
+		btn2.setBounds(305, 300, 60, 20);
 		btn3 = new JButton("위치검색");
-		btn3.setBounds(450, 240, 90, 20);
+		btn3.setBounds(930, 60, 90, 20);
+		btn4 = new JButton("초기화");
+		btn4.setBounds(560, 60, 70, 20);
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,11 +192,25 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String url = "https://map.naver.com/v5/search/";
-					url += URLEncoder.encode(F, "UTF-8");
+					url += URLEncoder.encode(G, "UTF-8");
 					Desktop.getDesktop().browse(new URI(url));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+			}
+		});
+
+		btn4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				cb.setSelected(true);
+				ci2.select(0);
+				sc.setText("");
+				sc2.setText("");
+				model.setNumRows(0);
+				sc3.setText("");
+				;
+
 			}
 		});
 
@@ -213,10 +229,11 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.getContentPane().add(sc2);
 		f.getContentPane().add(btn2);
 		f.getContentPane().add(llb5);
-		f.getContentPane().add(p2);
+//		f.getContentPane().add(p2);
 		f.getContentPane().add(llb6);
 		f.getContentPane().add(btn3);
 		f.getContentPane().add(sc3);
+		f.getContentPane().add(btn4);
 
 		P = new JPanel();
 		lb = new JLabel("분류", JLabel.CENTER);
@@ -224,8 +241,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		lb3 = new JLabel("이름", JLabel.CENTER);
 		lb4 = new JLabel("전화번호", JLabel.CENTER);
 		lb5 = new JLabel("주소", JLabel.CENTER);
-		lb6 = new JLabel("신주소", JLabel.CENTER);
-		lb7 = new JLabel("태그", JLabel.CENTER);
+		lb6 = new JLabel("태그", JLabel.CENTER);
 
 		tf = new JTextField();
 		tf2 = new JTextField();
@@ -233,8 +249,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		tf4 = new JTextField();
 		tf5 = new JTextField();
 		tf6 = new JTextField();
-		tf7 = new JTextField();
-		P.setLayout(new GridLayout(7, 8));
+		P.setLayout(new GridLayout(6, 7));
 		P.add(lb);
 		P.add(tf);
 		P.add(lb2);
@@ -247,12 +262,14 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		P.add(tf5);
 		P.add(lb6);
 		P.add(tf6);
-		P.add(lb7);
-		P.add(tf7);
-		model = new DefaultTableModel(ob, header);
+		model = new DefaultTableModel(ob, header) {
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
 		table = new JTable(model);
 		js = new JScrollPane(table);
-		js.setBounds(20, 270, 520, 245);
+		js.setBounds(500, 90, 520, 250);
 		f.getContentPane().add(js);
 
 		JLabel lblNewLabel = new JLabel("New label");
@@ -272,7 +289,6 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		tf4.addActionListener(this);
 		tf5.addActionListener(this);
 		tf6.addActionListener(this);
-		tf7.addActionListener(this);
 		table.addMouseListener(this);
 
 		this.addWindowListener(new WindowAdapter() {
@@ -306,17 +322,13 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		} else if (e.getSource() == tf5) {
 			tf6.requestFocus();
 		} else if (e.getSource() == tf6) {
-			tf7.requestFocus();
-		} else if (e.getSource() == tf7) {
 			if (tf.getText().equals("") && tf2.getText().equals("") && tf3.getText().equals("")
-					&& tf4.getText().equals("") && tf5.getText().equals("") && tf7.getText().equals("")
-					&& tf7.getText().equals("")) {
+					&& tf4.getText().equals("") && tf5.getText().equals("") && tf6.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "값을 입력하세요.");
 				tf.requestFocus();
 				return;
 			}
-			Object data[] = { tf.getText(), tf2.getText(), tf3.getText(), tf4.getText(), tf5.getText(), tf6.getText(),
-					tf7.getText() };
+			Object data[] = { tf.getText(), tf2.getText(), tf3.getText(), tf4.getText(), tf5.getText(), tf6.getText() };
 			model.addRow(data);
 			tf.setText("");
 			tf2.setText("");
@@ -324,7 +336,6 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			tf4.setText("");
 			tf5.setText("");
 			tf6.setText("");
-			tf7.setText("");
 			tf.requestFocus();
 		}
 
@@ -412,12 +423,11 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				String GROUP_NAME = rs.getString("GROUP_NAME");
 				int UNIQUE_NUMBER = rs.getInt("UNIQUE_NUMBER");
 				String NAME = rs.getString("NAME");
-				String PHONE_NUMBER = rs.getString("PHONE_NUMBER");
+				String PHONENUMBER = rs.getString("PHONENUMBER");
 				String TAG = rs.getString("TAG");
 				String ADDRESS = rs.getString("ADDRESS");
-				String NEWADDRESS = rs.getString("NEWADDRESS");
 
-				Object data[] = { GROUP_NAME, UNIQUE_NUMBER, NAME, PHONE_NUMBER, ADDRESS, NEWADDRESS, TAG };
+				Object data[] = { GROUP_NAME, UNIQUE_NUMBER, NAME, PHONENUMBER, ADDRESS, TAG };
 				model.addRow(data);
 
 			}
