@@ -2,7 +2,9 @@ import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -11,11 +13,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,13 +51,13 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	JScrollPane js;
 	Object ob[][] = new Object[0][7];
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "신주소", "키워드" };
-	JPanel P, p2;
+	JPanel P, p2, background;
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
 	JTextField tf, tf2, tf3, tf4, tf5, tf6, tf7, sc, sc2, sc3;
 	JFrame f, f2;
 	JButton btn, btn2, btn3;
 	JLabel llb, llb2, llb3, llb4, llb5, llb6;
-	Checkbox cb, cb2, cb3, cb4;
+	JCheckBox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
 
 	Connection con = null;
@@ -50,7 +69,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f = new JFrame("서울 관광정보 서비스");
 		f.setBounds(50, 50, 1080, 570);
 		f.getContentPane().setBackground(Color.getHSBColor(0.0f, 20.0f, 40.0f));
-		f.setLayout(null);
+		f.getContentPane().setLayout(null);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -61,15 +80,27 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		llb3.setBounds(27, 50, 70, 40);
 		Font yellow = new Font("", Font.BOLD, 10);
 		llb3.setFont(yellow);
-		CheckboxGroup group1 = new CheckboxGroup();
-		cb = new Checkbox("전체", group1, true);
+
+		ButtonGroup group1 = new ButtonGroup();
+		cb = new JCheckBox("전체", true);
 		cb.setBounds(121, 50, 50, 40);
-		cb2 = new Checkbox("명소", group1, true);
+		cb2 = new JCheckBox("명소", false);
 		cb2.setBounds(171, 50, 50, 40);
-		cb3 = new Checkbox("맛집", group1, true);
+		cb3 = new JCheckBox("맛집", false);
 		cb3.setBounds(221, 50, 50, 40);
-		cb4 = new Checkbox("쇼핑", group1, true);
+		cb4 = new JCheckBox("쇼핑", false);
 		cb4.setBounds(271, 50, 50, 40);
+
+		group1.add(cb);
+		group1.add(cb2);
+		group1.add(cb3);
+		group1.add(cb4);
+
+		cb.setOpaque(false);
+		cb2.setOpaque(false);
+		cb3.setOpaque(false);
+		cb4.setOpaque(false);
+
 		llb4 = new JLabel("지역 분류");
 		llb4.setFont(yellow);
 		llb4.setBounds(26, 82, 70, 40);
@@ -133,7 +164,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn.setBounds(223, 124, 60, 20);
 		btn2 = new JButton("검색");
 		btn2.setBounds(223, 162, 60, 20);
-		btn3 = new JButton("상세보기");
+		btn3 = new JButton("위치검색");
 		btn3.setBounds(450, 240, 90, 20);
 
 		btn.addActionListener(new ActionListener() {
@@ -154,25 +185,38 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			}
 		});
 
-		f.add(llb3);
-		f.add(cb);
-		f.add(cb2);
-		f.add(cb3);
-		f.add(cb4);
-		f.add(llb4);
-		f.add(ci);
-		f.add(ci2);
-		f.add(llb);
-		f.add(sc);
-		f.add(btn);
-		f.add(llb2);
-		f.add(sc2);
-		f.add(btn2);
-		f.add(llb5);
-		f.add(p2);
-		f.add(llb6);
-		f.add(btn3);
-		f.add(sc3);
+		btn3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String url = "https://map.naver.com/v5/search/";
+					url += URLEncoder.encode(F, "UTF-8");
+					Desktop.getDesktop().browse(new URI(url));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		f.getContentPane().add(llb3);
+		f.getContentPane().add(cb);
+		f.getContentPane().add(cb2);
+		f.getContentPane().add(cb3);
+		f.getContentPane().add(cb4);
+		f.getContentPane().add(llb4);
+		f.getContentPane().add(ci);
+		f.getContentPane().add(ci2);
+		f.getContentPane().add(llb);
+		f.getContentPane().add(sc);
+		f.getContentPane().add(btn);
+		f.getContentPane().add(llb2);
+		f.getContentPane().add(sc2);
+		f.getContentPane().add(btn2);
+		f.getContentPane().add(llb5);
+		f.getContentPane().add(p2);
+		f.getContentPane().add(llb6);
+		f.getContentPane().add(btn3);
+		f.getContentPane().add(sc3);
 
 		P = new JPanel();
 		lb = new JLabel("분류", JLabel.CENTER);
@@ -209,7 +253,12 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table = new JTable(model);
 		js = new JScrollPane(table);
 		js.setBounds(20, 270, 520, 245);
-		f.add(js);
+		f.getContentPane().add(js);
+
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\full.png"));
+		lblNewLabel.setBounds(0, 0, 1066, 533);
+		f.getContentPane().add(lblNewLabel);
 
 //		this.add("Center", js);
 //		setBounds(250, 250, 600, 400);
@@ -307,7 +356,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			String C = sc.getText();
 			String D = sc2.getText();
 
-			if (cb.getState()) {
+			if (cb.isSelected()) {
 				if (B.equals("시군구 선택")) {
 					B = "";
 				}
@@ -321,7 +370,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
-			} else if (cb2.getState()) {
+			} else if (cb2.isSelected()) {
 				if (B.equals("시군구 선택")) {
 					B = "";
 				}
@@ -333,7 +382,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
-			} else if (cb3.getState()) {
+			} else if (cb3.isSelected()) {
 				if (B.equals("시군구 선택")) {
 					B = "";
 				}
@@ -345,7 +394,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 
-			} else if (cb4.getState()) {
+			} else if (cb4.isSelected()) {
 				if (B.equals("시군구 선택")) {
 					B = "";
 				}
@@ -377,16 +426,17 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
+
 	String F = "";
+	String G = "";
 
 	public void mouseClicked(MouseEvent me) {
 
 		int row = table.getSelectedRow();
 //			System.out.println(table.getModel().getValueAt(row, 2) + "\t");
-			F = (String) table.getModel().getValueAt(row, 2);
-			sc3.setText(F);
-			
-			
+		F = (String) table.getModel().getValueAt(row, 2);
+		G = (String) table.getModel().getValueAt(row, 4);
+		sc3.setText(F);
 
 	}
 
@@ -410,5 +460,4 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		Test t = new Test();
 
 	}
-
 }
