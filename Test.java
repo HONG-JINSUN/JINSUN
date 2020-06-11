@@ -3,9 +3,11 @@ import java.awt.CheckboxGroup;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,8 +43,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Caret;
 
 public class Test extends JFrame implements ActionListener, MouseListener {
 
@@ -52,23 +57,26 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	Object ob[][] = new Object[0][6];
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "키워드" };
 	JPanel P, p2, background;
-	JLabel lb, lb2, lb3, lb4, lb5, lb6;
+	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
 	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3;
 	JFrame f, f2;
 	JButton btn, btn2, btn3, btn4;
 	JLabel llb, llb2, llb3, llb4, llb5, llb6;
 	JCheckBox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
+	JTextArea ta;
 
 	Connection con = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	
+	Image img = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\info.png").getImage(); //이미지 선언
 
 	Test() {
 
 		f = new JFrame("서울 관광정보 서비스");
-		f.setBounds(50, 50, 1080, 570);
-		f.getContentPane().setBackground(Color.getHSBColor(0.0f, 20.0f, 40.0f));
+		f.setBounds(50, 50, 1080, 655);
+//		f.getContentPane().setBackground(Color.getHSBColor(0.0f, 20.0f, 40.0f));
 		f.getContentPane().setLayout(null);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -77,19 +85,24 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		});
 
 		llb3 = new JLabel("서비스 분류", Label.RIGHT);
-		llb3.setBounds(100, 150, 70, 40);
-		Font yellow = new Font("", Font.BOLD, 10);
+		llb3.setBounds(110, 150, 70, 40);
+		llb3.setForeground(Color.white);
+		Font yellow = new Font("", Font.BOLD, 12);
 		llb3.setFont(yellow);
 
 		ButtonGroup group1 = new ButtonGroup();
 		cb = new JCheckBox("전체", true);
-		cb.setBounds(200, 150, 50, 40);
+		cb.setForeground(Color.white);
+		cb.setBounds(210, 150, 50, 40);
 		cb2 = new JCheckBox("명소", false);
-		cb2.setBounds(250, 150, 50, 40);
+		cb2.setForeground(Color.white);
+		cb2.setBounds(260, 150, 50, 40);
 		cb3 = new JCheckBox("맛집", false);
-		cb3.setBounds(300, 150, 50, 40);
+		cb3.setForeground(Color.white);
+		cb3.setBounds(310, 150, 50, 40);
 		cb4 = new JCheckBox("쇼핑", false);
-		cb4.setBounds(350, 150, 50, 40);
+		cb4.setForeground(Color.white);
+		cb4.setBounds(360, 150, 50, 40);
 
 		group1.add(cb);
 		group1.add(cb2);
@@ -102,14 +115,15 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		cb4.setOpaque(false);
 
 		llb4 = new JLabel("지역 분류", Label.RIGHT);
+		llb4.setForeground(Color.white);
 		llb4.setFont(yellow);
-		llb4.setBounds(100, 190, 70, 40);
+		llb4.setBounds(110, 190, 70, 40);
 		ci = new Choice();
-		ci.setBounds(200, 200, 80, 40);
+		ci.setBounds(210, 200, 80, 40);
 //		ci.add("지역선택");
 		ci.add("서울");
 		ci2 = new Choice();
-		ci2.setBounds(285, 200, 100, 40);
+		ci2.setBounds(295, 200, 100, 40);
 		ci2.add("시군구 선택");
 		ci2.add("강남구");
 		ci2.add("강동구");
@@ -140,34 +154,67 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		llb6 = new JLabel("", Label.LEFT);
 		llb6.setBounds(118, 185, 180, 40);
 		llb5 = new JLabel("검색결과", Label.RIGHT);
-		llb5.setBounds(505, 60, 80, 20);
+		llb5.setForeground(Color.white);
+		llb5.setBounds(505, 80, 80, 20);
 		llb5.setFont(yellow);
 		llb = new JLabel("검색 ", Label.RIGHT);
+		llb.setForeground(Color.white);
 		llb.setFont(yellow);
-		llb.setBounds(100, 235, 50, 50);
+		llb.setBounds(110, 235, 50, 50);
 		llb2 = new JLabel("키워드 검색 ", Label.RIGHT);
+		llb2.setForeground(Color.white);
 		llb2.setFont(yellow);
-		llb2.setBounds(100, 285, 80, 50);
-		sc = new JTextField(10);
-		sc.setBounds(200, 250, 100, 20);
-		sc2 = new JTextField(10);
-		sc2.setBounds(200, 300, 100, 20);
-		sc3 = new JTextField();
+		llb2.setBounds(110, 285, 80, 50);
+		sc = new JTextField(10) {
+			public void setBorder(Border border) {
+				
+			}
+		};
+//		sc.setOpaque(false);
+		sc.setBounds(210, 250, 100, 20);
+		sc2 = new JTextField(10) {
+		public void setBorder(Border border) {
+			
+		}
+	};
+		sc2.setBounds(210, 300, 100, 20);
+		sc3 = new JTextField() {
+		public void setBorder(Border border) {
+			
+		}
+	};
 		sc3.setEditable(false);
-		sc3.setBounds(720, 60, 200, 20);
+		sc3.setBounds(720, 80, 200, 20);
 		sc3.setText(F);
 
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
 		p2.setBounds(350, 40, 190, 170);
-		btn = new JButton("검색");
-		btn.setBounds(305, 250, 60, 20);
-		btn2 = new JButton("검색");
-		btn2.setBounds(305, 300, 60, 20);
-		btn3 = new JButton("위치검색");
-		btn3.setBounds(930, 60, 90, 20);
-		btn4 = new JButton("초기화");
-		btn4.setBounds(560, 60, 70, 20);
+		btn = new JButton("검색") {
+		public void setBorder(Border border) {
+			
+		}
+	};
+		btn.setOpaque(false);
+		btn.setBounds(315, 250, 60, 20);
+		btn2 = new JButton("검색") {
+		public void setBorder(Border border) {
+			
+		}
+	};
+		btn2.setBounds(315, 300, 60, 20);
+		btn3 = new JButton("위치검색") {
+		public void setBorder(Border border) {
+			
+		}
+	};
+		btn3.setBounds(930, 80, 90, 20);
+		btn4 = new JButton("초기화") {
+			public void setBorder(Border border) {
+				
+			}
+		};
+		btn4.setBounds(560, 80, 70, 20);
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,7 +256,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				sc2.setText("");
 				model.setNumRows(0);
 				sc3.setText("");
-				;
+				f2.dispose();
 
 			}
 		});
@@ -269,12 +316,12 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		};
 		table = new JTable(model);
 		js = new JScrollPane(table);
-		js.setBounds(500, 90, 520, 250);
+		js.setBounds(500, 110, 520, 250);
 		f.getContentPane().add(js);
 
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\full.png"));
-		lblNewLabel.setBounds(0, 0, 1066, 533);
+		JLabel lblNewLabel = new JLabel();
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
+		lblNewLabel.setBounds(0, 0, 1080, 620);
 		f.getContentPane().add(lblNewLabel);
 
 //		this.add("Center", js);
@@ -282,6 +329,28 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setVisible(true);
 		f.setVisible(true);
+
+		f2 = new JFrame("상세정보");
+
+		f2.setBounds(1120, 50, 315, 387);
+		ta = new JTextArea() {
+            { setOpaque( false ) ; }
+            public void paintComponent(Graphics g){
+                g.drawImage(img,0,0,null);       //이미지 그리기
+                super.paintComponent(g);
+            }
+        };
+        ta.setBounds(0, 0, 300, 350);
+		ta.setEditable(false);
+		ta.setLineWrap(true);
+		ta.setFont(yellow);
+		ta.setForeground(Color.white);
+		f2.getContentPane().add(ta);
+		
+//		lb7 = new JLabel();
+//		lb7.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\full.png"));
+//		lb7.setBounds(0, 0, 70, 40);
+//		f2.add(lb7);
 
 		tf.addActionListener(this);
 		tf2.addActionListener(this);
@@ -439,6 +508,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 
 	String F = "";
 	String G = "";
+	String H = "";
 
 	public void mouseClicked(MouseEvent me) {
 
@@ -446,7 +516,23 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 //			System.out.println(table.getModel().getValueAt(row, 2) + "\t");
 		F = (String) table.getModel().getValueAt(row, 2);
 		G = (String) table.getModel().getValueAt(row, 4);
+
+		H = "\n\n\n\n                       " + (String) table.getModel().getValueAt(row, 2)
+				+ "\n\n                       ● 분류\n\n                       " +(String) table.getModel().getValueAt(row, 0)
+				+ "\n\n                       ● 전화번호\n\n                       " +(String) table.getModel().getValueAt(row, 3)
+				+ "\n\n                       ● 주소\n\n                       " +(String) table.getModel().getValueAt(row, 4);
+
 		sc3.setText(F);
+
+		ta.setText(H);
+
+		f2.setVisible(true);
+
+		f2.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+
+			}
+		});
 
 	}
 
