@@ -184,37 +184,52 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		}
 	};
 		sc3.setEditable(false);
-		sc3.setBounds(720, 80, 200, 20);
+		sc3.setBounds(790, 80, 200, 20);
 		sc3.setText(F);
 
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
 		p2.setBounds(350, 40, 190, 170);
-		btn = new JButton("검색") {
+		btn = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
 		public void setBorder(Border border) {
 			
 		}
 	};
-		btn.setOpaque(false);
-		btn.setBounds(315, 250, 60, 20);
-		btn2 = new JButton("검색") {
+		btn.setBounds(315, 250, 20, 20);
+		btn.setBorderPainted(false);
+		btn.setContentAreaFilled(false);
+		btn.setFocusPainted(false);
+		btn.setForeground(Color.white);
+		btn2 = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
 		public void setBorder(Border border) {
 			
 		}
 	};
-		btn2.setBounds(315, 300, 60, 20);
-		btn3 = new JButton("위치검색") {
+		btn2.setBounds(315, 300, 20, 20);
+		btn2.setBorderPainted(false);
+		btn2.setContentAreaFilled(false);
+		btn2.setFocusPainted(false);
+		btn2.setForeground(Color.white);
+		btn3 = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼32.png")) {
 		public void setBorder(Border border) {
 			
 		}
 	};
-		btn3.setBounds(930, 80, 90, 20);
-		btn4 = new JButton("초기화") {
+		btn3.setBounds(1000, 80, 20, 20);
+		btn3.setBorderPainted(false);
+		btn3.setContentAreaFilled(false);
+		btn3.setFocusPainted(false);
+		btn3.setForeground(Color.white);
+		btn4 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼42.png")) {
 			public void setBorder(Border border) {
 				
 			}
 		};
-		btn4.setBounds(560, 80, 70, 20);
+		btn4.setBounds(560, 80, 20, 20);
+		btn4.setBorderPainted(false);
+		btn4.setContentAreaFilled(false);
+		btn4.setFocusPainted(false);
+		btn4.setForeground(Color.white);
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
