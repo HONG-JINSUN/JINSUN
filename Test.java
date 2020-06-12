@@ -170,14 +170,17 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				
 			}
 		};
-//		sc.setOpaque(false);
-		sc.setBounds(210, 250, 100, 20);
+		sc.setOpaque(false);
+		sc.setBounds(225, 250, 100, 20);
+		sc.setForeground(Color.white);
 		sc2 = new JTextField(10) {
 		public void setBorder(Border border) {
 			
 		}
 	};
-		sc2.setBounds(210, 300, 100, 20);
+		sc2.setBounds(225, 300, 100, 20);
+		sc2.setOpaque(false);
+		sc2.setForeground(Color.white);
 		sc3 = new JTextField() {
 		public void setBorder(Border border) {
 			
@@ -195,7 +198,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			
 		}
 	};
-		btn.setBounds(315, 250, 20, 20);
+		btn.setBounds(330, 250, 20, 20);
 		btn.setBorderPainted(false);
 		btn.setContentAreaFilled(false);
 		btn.setFocusPainted(false);
@@ -205,7 +208,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			
 		}
 	};
-		btn2.setBounds(315, 300, 20, 20);
+		btn2.setBounds(330, 300, 20, 20);
 		btn2.setBorderPainted(false);
 		btn2.setContentAreaFilled(false);
 		btn2.setFocusPainted(false);
@@ -252,6 +255,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if ( !F.equals("")) {
 				try {
 					String url = "https://map.naver.com/v5/search/";
 					url += URLEncoder.encode(G, "UTF-8");
@@ -259,6 +264,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+			}
 			}
 		});
 
