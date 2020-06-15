@@ -185,14 +185,17 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		public void setBorder(Border border) {
 			
 		}
-	};
+	};	
 		sc3.setEditable(false);
+		sc3.setOpaque(false);
 		sc3.setBounds(790, 80, 200, 20);
 		sc3.setText(F);
+		sc3.setForeground(Color.white);
 
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
 		p2.setBounds(350, 40, 190, 170);
+//		btn = new JButton();
 		btn = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
 		public void setBorder(Border border) {
 			
@@ -203,6 +206,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn.setContentAreaFilled(false);
 		btn.setFocusPainted(false);
 		btn.setForeground(Color.white);
+//		btn2 = new JButton();
 		btn2 = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
 		public void setBorder(Border border) {
 			
@@ -213,12 +217,13 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn2.setContentAreaFilled(false);
 		btn2.setFocusPainted(false);
 		btn2.setForeground(Color.white);
+//		btn3 = new JButton();
 		btn3 = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼32.png")) {
 		public void setBorder(Border border) {
 			
 		}
 	};
-		btn3.setBounds(1000, 80, 20, 20);
+		btn3.setBounds(990, 80, 20, 20);
 		btn3.setBorderPainted(false);
 		btn3.setContentAreaFilled(false);
 		btn3.setFocusPainted(false);
@@ -431,7 +436,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 
 	}
 
-	private void Connect() {
+	public void Connect() {
 
 		String url = "jdbc:oracle:thin:@localhost:1521/orcl";
 		String user = "kosea";
