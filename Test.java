@@ -86,6 +86,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	Test() {
 
 		f = new JFrame("¼­¿ï °ü±¤Á¤º¸ ¼­ºñ½º");
+		f.setLayout(null);
 		f.setBounds(50, 50, 1080, 655);
 //		f.getContentPane().setBackground(Color.getHSBColor(0.0f, 20.0f, 40.0f));
 		f.getContentPane().setLayout(null);
@@ -246,7 +247,6 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn4.setContentAreaFilled(false);
 		btn4.setFocusPainted(false);
 		btn4.setForeground(Color.white);
-		btn4.setBounds(100, 100, 100, 100);
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -368,7 +368,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		
 		table2 = new JTable(model2);
 		js2 =  new JScrollPane(table2);
-		js2.setBounds( 20, 20, 250, 150);
+		js2.setBounds( 5, 5, 295, 200);
 
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
@@ -403,17 +403,17 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		ta.setForeground(Color.white);
 		f2.getContentPane().add(ta);
 		
-		f3 = new JFrame("¸®ºä");
+		f3 = new JFrame("¸®ºä ³²±â±â");
 		f3.setLayout(null);
 		f3.setBounds(1120, 435, 315, 270);
 		
 		sc4 = new JTextField();
-		sc4.setBounds(20, 200, 220, 20);
+		sc4.setBounds(5, 208, 230, 20);
 		f3.add(sc4);
 		f3.add(js2);
 		
-		btn6 = new JButton();
-		btn6.setBounds(250, 200, 40, 20);
+		btn6 = new JButton("µî·Ï");
+		btn6.setBounds(238, 208, 60, 20);
 		f3.add(btn6);
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -533,7 +533,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	        String R_NUMBER = Integer.toString(Z + 1), REVIEW = J;                  /* ¸Æ½º°ª + 10, Integer -> String */
 			int UNIQUE_NUMBER = I;
 	        String sql4 = "INSERT INTO SEOULREVIEW VALUES ('" + R_NUMBER + "','" + UNIQUE_NUMBER + "','" + REVIEW + "',sysdate)";
-			System.out.println(sql4);
+//			System.out.println(sql4);
 	        pstmt = con.prepareStatement(sql4);
 			rs = pstmt.executeQuery();
 
