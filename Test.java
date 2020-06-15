@@ -295,6 +295,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				model.setNumRows(0);
 				sc3.setText("");
 				f2.dispose();
+				f3.dispose();
 
 			}
 		});
