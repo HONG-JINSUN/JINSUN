@@ -45,7 +45,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Caret;
 
@@ -58,7 +60,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	Object ob2[][] = new Object[0][2];
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "키워드" };
 	String header2[] = { "리뷰", "날짜"};
-	JPanel P, p2, background;
+	JPanel P, p2, background, f3background;
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
 	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3, sc4;
 	JFrame f, f2, f3;
@@ -82,6 +84,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	ResultSet rs = null;
 
 	Image img = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\info.png").getImage(); // 이미지 선언
+	Image review = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\review.png").getImage(); // 이미지 선언
 
 	Test() {
 
@@ -348,7 +351,16 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				return false;
 			}
 		};
+		
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		table = new JTable(model);
+		table.getColumn("분류").setPreferredWidth(50);
+		table.getColumn("고유번호").setPreferredWidth(70);
+		table.getColumn("이름").setPreferredWidth(300);
+		table.getColumn("분류").setCellRenderer(dtcr);
+		table.getColumn("고유번호").setCellRenderer(dtcr);
+//		table.getColumn("이름").setCellRenderer(dtcr);
 		js = new JScrollPane(table);
 		js.setBounds(500, 110, 520, 250);
 		f.getContentPane().add(js);
@@ -367,8 +379,10 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		};
 		
 		table2 = new JTable(model2);
+		table2.getColumn("리뷰").setPreferredWidth(240);
+		table2.getColumn("리뷰").setCellRenderer(dtcr);
 		js2 =  new JScrollPane(table2);
-		js2.setBounds( 5, 5, 295, 200);
+		js2.setBounds( 5, 5, 290, 195);
 
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
@@ -408,12 +422,32 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f3.setBounds(1120, 435, 315, 270);
 		
 		sc4 = new JTextField();
-		sc4.setBounds(5, 208, 230, 20);
+		sc4.setBounds(5, 205, 265, 20);
 		f3.add(sc4);
 		f3.add(js2);
 		
-		btn6 = new JButton("등록");
-		btn6.setBounds(238, 208, 60, 20);
+		f3background = new JPanel(){
+			{
+				setOpaque(false);
+			}
+
+			public void paintComponent(Graphics g) {
+				g.drawImage(review, 0, 0, null); // 이미지 그리기
+				super.paintComponent(g);
+			}
+		};
+		f3background.setBounds(0, 0, 315, 270);
+		
+//		btn6 = new JButton();
+		btn6 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼43.png")) {
+			public void setBorder(Border border) {
+
+			}
+		};
+		btn6.setBounds(275, 205, 20, 20);
+		btn6.setBorderPainted(false);
+		btn6.setContentAreaFilled(false);
+		btn6.setFocusPainted(false);
 		f3.add(btn6);
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -426,7 +460,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			}
 		});
 		
-
+		f3.add(f3background);
 //		lb7 = new JLabel();
 //		lb7.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\full.png"));
 //		lb7.setBounds(0, 0, 70, 40);
