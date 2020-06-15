@@ -51,26 +51,37 @@ import javax.swing.text.Caret;
 
 public class Test extends JFrame implements ActionListener, MouseListener {
 
-	DefaultTableModel model;
-	JTable table;
-	JScrollPane js;
+	DefaultTableModel model, model2;
+	JTable table, table2;
+	JScrollPane js, js2;
 	Object ob[][] = new Object[0][6];
+	Object ob2[][] = new Object[0][2];
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "키워드" };
+	String header2[] = { "리뷰", "날짜"};
 	JPanel P, p2, background;
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
-	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3;
-	JFrame f, f2;
-	JButton btn, btn2, btn3, btn4;
+	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3, sc4;
+	JFrame f, f2, f3;
+	JButton btn, btn2, btn3, btn4, btn6;
 	JLabel llb, llb2, llb3, llb4, llb5, llb6;
 	JCheckBox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
 	JTextArea ta;
+	JLabel p2lb, p2lb2;
+	JTextField p2tf, p2tf2;
+	
+	String F = "";
+	String G = "";
+	String H = "";
+	int I = 0;
+	String J = "";
+	String K = Integer.toString(I);
 
 	Connection con = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	
-	Image img = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\info.png").getImage(); //이미지 선언
+
+	Image img = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\info.png").getImage(); // 이미지 선언
 
 	Test() {
 
@@ -167,62 +178,59 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		llb2.setBounds(110, 285, 80, 50);
 		sc = new JTextField(10) {
 			public void setBorder(Border border) {
-				
+
 			}
 		};
 		sc.setOpaque(false);
 		sc.setBounds(225, 250, 100, 20);
 		sc.setForeground(Color.white);
 		sc2 = new JTextField(10) {
-		public void setBorder(Border border) {
-			
-		}
-	};
+			public void setBorder(Border border) {
+
+			}
+		};
 		sc2.setBounds(225, 300, 100, 20);
 		sc2.setOpaque(false);
 		sc2.setForeground(Color.white);
 		sc3 = new JTextField() {
-		public void setBorder(Border border) {
-			
-		}
-	};	
+			public void setBorder(Border border) {
+
+			}
+		};
 		sc3.setEditable(false);
 		sc3.setOpaque(false);
 		sc3.setBounds(790, 80, 200, 20);
 		sc3.setText(F);
 		sc3.setForeground(Color.white);
 
-		p2 = new JPanel();
-		p2.setBackground(Color.white);
-		p2.setBounds(350, 40, 190, 170);
 //		btn = new JButton();
-		btn = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
-		public void setBorder(Border border) {
-			
-		}
-	};
+		btn = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
+			public void setBorder(Border border) {
+
+			}
+		};
 		btn.setBounds(330, 250, 20, 20);
 		btn.setBorderPainted(false);
 		btn.setContentAreaFilled(false);
 		btn.setFocusPainted(false);
 		btn.setForeground(Color.white);
 //		btn2 = new JButton();
-		btn2 = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
-		public void setBorder(Border border) {
-			
-		}
-	};
+		btn2 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
+			public void setBorder(Border border) {
+
+			}
+		};
 		btn2.setBounds(330, 300, 20, 20);
 		btn2.setBorderPainted(false);
 		btn2.setContentAreaFilled(false);
 		btn2.setFocusPainted(false);
 		btn2.setForeground(Color.white);
 //		btn3 = new JButton();
-		btn3 = new JButton( new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼32.png")) {
-		public void setBorder(Border border) {
-			
-		}
-	};
+		btn3 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼32.png")) {
+			public void setBorder(Border border) {
+
+			}
+		};
 		btn3.setBounds(990, 80, 20, 20);
 		btn3.setBorderPainted(false);
 		btn3.setContentAreaFilled(false);
@@ -230,7 +238,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn3.setForeground(Color.white);
 		btn4 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼42.png")) {
 			public void setBorder(Border border) {
-				
+
 			}
 		};
 		btn4.setBounds(560, 80, 20, 20);
@@ -238,6 +246,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn4.setContentAreaFilled(false);
 		btn4.setFocusPainted(false);
 		btn4.setForeground(Color.white);
+		btn4.setBounds(100, 100, 100, 100);
 
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -260,16 +269,16 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if ( !F.equals("")) {
-				try {
-					String url = "https://map.naver.com/v5/search/";
-					url += URLEncoder.encode(G, "UTF-8");
-					Desktop.getDesktop().browse(new URI(url));
-				} catch (Exception e1) {
-					e1.printStackTrace();
+
+				if (!F.equals("")) {
+					try {
+						String url = "https://map.naver.com/v5/search/";
+						url += URLEncoder.encode(G, "UTF-8");
+						Desktop.getDesktop().browse(new URI(url));
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 				}
-			}
 			}
 		});
 
@@ -302,7 +311,6 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.getContentPane().add(sc2);
 		f.getContentPane().add(btn2);
 		f.getContentPane().add(llb5);
-//		f.getContentPane().add(p2);
 		f.getContentPane().add(llb6);
 		f.getContentPane().add(btn3);
 		f.getContentPane().add(sc3);
@@ -344,6 +352,23 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		js = new JScrollPane(table);
 		js.setBounds(500, 110, 520, 250);
 		f.getContentPane().add(js);
+		
+		p2 = new JPanel();
+		p2lb = new JLabel("리뷰", JLabel.CENTER);
+		p2tf = new JTextField();
+		p2lb2 = new JLabel("날짜", JLabel.CENTER);
+		p2tf2 = new JTextField();
+		p2.setLayout(new GridLayout(2, 3));
+		model2 = new DefaultTableModel( ob2, header2 ) {
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+			
+		};
+		
+		table2 = new JTable(model2);
+		js2 =  new JScrollPane(table2);
+		js2.setBounds( 20, 20, 250, 150);
 
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
@@ -357,22 +382,51 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.setVisible(true);
 
 		f2 = new JFrame("상세정보");
+		f2.setLayout(null);
 
 		f2.setBounds(1120, 50, 315, 387);
 		ta = new JTextArea() {
-            { setOpaque( false ) ; }
-            public void paintComponent(Graphics g){
-                g.drawImage(img,0,0,null);       //이미지 그리기
-                super.paintComponent(g);
-            }
-        };
-        ta.setBounds(0, 0, 300, 350);
+			{
+				setOpaque(false);
+			}
+
+			public void paintComponent(Graphics g) {
+				g.drawImage(img, 0, 0, null); // 이미지 그리기
+				super.paintComponent(g);
+			}
+		};
+		
+		ta.setBounds(0, 0, 300, 350);
 		ta.setEditable(false);
 		ta.setLineWrap(true);
 		ta.setFont(yellow);
 		ta.setForeground(Color.white);
 		f2.getContentPane().add(ta);
 		
+		f3 = new JFrame("리뷰");
+		f3.setLayout(null);
+		f3.setBounds(1120, 435, 315, 270);
+		
+		sc4 = new JTextField();
+		sc4.setBounds(20, 200, 220, 20);
+		f3.add(sc4);
+		f3.add(js2);
+		
+		btn6 = new JButton();
+		btn6.setBounds(250, 200, 40, 20);
+		f3.add(btn6);
+		btn6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Connect();
+				Update();
+				Select2();
+				sc4.setText("");
+
+			}
+		});
+		
+
 //		lb7 = new JLabel();
 //		lb7.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\full.png"));
 //		lb7.setBounds(0, 0, 70, 40);
@@ -384,6 +438,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		tf4.addActionListener(this);
 		tf5.addActionListener(this);
 		tf6.addActionListener(this);
+		p2tf.addActionListener(this);
+		p2tf2.addActionListener(this);
 		table.addMouseListener(this);
 
 		this.addWindowListener(new WindowAdapter() {
@@ -406,6 +462,10 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if ( e.getSource() == p2tf) {
+			p2tf2.requestFocus();
+		} else if ( e.getSource() == p2tf2) {		
+		}
 		if (e.getSource() == tf) {
 			tf2.requestFocus();
 		} else if (e.getSource() == tf2) {
@@ -424,7 +484,9 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				return;
 			}
 			Object data[] = { tf.getText(), tf2.getText(), tf3.getText(), tf4.getText(), tf5.getText(), tf6.getText() };
+			Object data2[] = { p2tf.getText(), p2tf2.getText() };
 			model.addRow(data);
+			model2.addRow(data2);
 			tf.setText("");
 			tf2.setText("");
 			tf3.setText("");
@@ -432,6 +494,9 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			tf5.setText("");
 			tf6.setText("");
 			tf.requestFocus();
+			p2tf.setText("");
+			p2tf2.setText("");
+			p2tf.requestFocus();
 		}
 
 	}
@@ -449,6 +514,32 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void Update() {
+		try {
+			
+			String sql2 = "SELECT MAX(R_NUMBER) FROM SEOULREVIEW";
+			pstmt = con.prepareStatement(sql2);
+			rs = pstmt.executeQuery();
+			int Z = 0;
+			while ( rs.next()) {
+				
+				Z = rs.getInt("MAX(R_NUMBER)");
+				
+			}
+			J = sc4.getText();
+			
+	        String R_NUMBER = Integer.toString(Z + 1), REVIEW = J;                  /* 맥스값 + 10, Integer -> String */
+			int UNIQUE_NUMBER = I;
+	        String sql4 = "INSERT INTO SEOULREVIEW VALUES ('" + R_NUMBER + "','" + UNIQUE_NUMBER + "','" + REVIEW + "',sysdate)";
+			System.out.println(sql4);
+	        pstmt = con.prepareStatement(sql4);
+			rs = pstmt.executeQuery();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void Select() {
@@ -531,10 +622,31 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
+	
+	public void Select2() {
+		
+		model2.setNumRows(0);
 
-	String F = "";
-	String G = "";
-	String H = "";
+		try {
+
+				String sql3 = "SELECT REVIEW, N_DATE FROM SEOULREVIEW where UNIQUE_NUMBER = '" + I + "' ORDER BY R_NUMBER";
+//				System.out.println(sql);
+				pstmt = con.prepareStatement(sql3);
+				rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String REVIEW = rs.getString("REVIEW");
+				String N_DATE = rs.getString("N_DATE");
+
+				Object data2[] = { REVIEW, N_DATE };
+				model2.addRow(data2);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	public void mouseClicked(MouseEvent me) {
 
@@ -542,17 +654,24 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 //			System.out.println(table.getModel().getValueAt(row, 2) + "\t");
 		F = (String) table.getModel().getValueAt(row, 2);
 		G = (String) table.getModel().getValueAt(row, 4);
+		I = (int) table.getModel().getValueAt(row, 1);
 
 		H = "\n\n\n\n                       " + (String) table.getModel().getValueAt(row, 2)
-				+ "\n\n                       ● 분류\n\n                       " +(String) table.getModel().getValueAt(row, 0)
-				+ "\n\n                       ● 전화번호\n\n                       " +(String) table.getModel().getValueAt(row, 3)
-				+ "\n\n                       ● 주소\n\n                       " +(String) table.getModel().getValueAt(row, 4);
+				+ "\n\n                       ● 분류\n\n                       "
+				+ (String) table.getModel().getValueAt(row, 0)
+				+ "\n\n                       ● 전화번호\n\n                       "
+				+ (String) table.getModel().getValueAt(row, 3)
+				+ "\n\n                       ● 주소\n\n                       "
+				+ (String) table.getModel().getValueAt(row, 4);
 
 		sc3.setText(F);
 
 		ta.setText(H);
 
 		f2.setVisible(true);
+		
+		Select2();
+		f3.setVisible(true);
 
 		f2.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
