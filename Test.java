@@ -361,10 +361,15 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table.getColumn("이름").setPreferredWidth(300);
 		table.getColumn("분류").setCellRenderer(dtcr);
 		table.getColumn("고유번호").setCellRenderer(dtcr);
+		((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
+		table.setShowGrid(false);
+		
 //		table.getColumn("이름").setCellRenderer(dtcr);
 		js = new JScrollPane(table);
 		js.setBounds(500, 110, 520, 250);
 		f.getContentPane().add(js);
+		js.setOpaque(false);
+		js.getViewport().setOpaque(false);
 		
 		p2 = new JPanel();
 		p2lb = new JLabel("리뷰", JLabel.CENTER);
@@ -384,6 +389,10 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table2.getColumn("리뷰").setCellRenderer(dtcr);
 		js2 =  new JScrollPane(table2);
 		js2.setBounds( 5, 5, 290, 195);
+		table2.setShowGrid(false);
+		js2.setOpaque(false);
+		js2.getViewport().setOpaque(false);
+		((DefaultTableCellRenderer)table2.getDefaultRenderer(Object.class)).setOpaque(false);
 
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
