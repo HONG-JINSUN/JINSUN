@@ -1,56 +1,10 @@
-import java.awt.Checkbox;
-import java.awt.CheckboxGroup;
-import java.awt.Choice;
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.Caret;
+import java.awt.*;
+import java.awt.event.*;
+import java.net.*;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.table.*;
 
 public class Test extends JFrame implements ActionListener, MouseListener {
 
@@ -60,7 +14,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	Object ob[][] = new Object[0][6];
 	Object ob2[][] = new Object[0][2];
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "키워드" };
-	String header2[] = { "리뷰", "날짜"};
+	String header2[] = { "리뷰", "날짜" };
 	JPanel P, p2, background, f3background;
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
 	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3, sc4;
@@ -72,7 +26,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	JTextArea ta;
 	JLabel p2lb, p2lb2;
 	JTextField p2tf, p2tf2;
-	
+
 	String F = "";
 	String G = "";
 	String H = "";
@@ -353,9 +307,9 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				return false;
 			}
 		};
-		
-		Border emptyBorder = BorderFactory.createEmptyBorder(0,0,0,0);
-		
+
+		Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		table = new JTable(model);
@@ -366,7 +320,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table.getColumn("고유번호").setCellRenderer(dtcr);
 //		((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
 		table.setShowGrid(false);
-		
+
 //		table.getColumn("이름").setCellRenderer(dtcr);
 		js = new JScrollPane(table);
 //		js.setLayout(null);
@@ -374,27 +328,27 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.getContentPane().add(js);
 		js.setOpaque(false);
 		js.getViewport().setOpaque(false);
-//		js.setBorder(emptyBorder);
-//		table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
-		
+//		js.setBorder(emptyBorder);                 // 테이블 테두리
+//		table.setAutoResizeMode(table.AUTO_RESIZE_OFF);       // 테이블 스크롤바
+
 		p2 = new JPanel();
 		p2lb = new JLabel("리뷰", JLabel.CENTER);
 		p2tf = new JTextField();
 		p2lb2 = new JLabel("날짜", JLabel.CENTER);
 		p2tf2 = new JTextField();
 		p2.setLayout(new GridLayout(2, 3));
-		model2 = new DefaultTableModel( ob2, header2 ) {
+		model2 = new DefaultTableModel(ob2, header2) {
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
-			
+
 		};
-		
+
 		table2 = new JTable(model2);
 		table2.getColumn("리뷰").setPreferredWidth(240);
 		table2.getColumn("리뷰").setCellRenderer(dtcr);
-		js2 =  new JScrollPane(table2);
-		js2.setBounds( 5, 5, 290, 195);
+		js2 = new JScrollPane(table2);
+		js2.setBounds(5, 5, 290, 195);
 		table2.setShowGrid(false);
 		js2.setOpaque(false);
 		js2.getViewport().setOpaque(false);
@@ -426,24 +380,24 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				super.paintComponent(g);
 			}
 		};
-		
+
 		ta.setBounds(0, 0, 300, 350);
 		ta.setEditable(false);
 		ta.setLineWrap(true);
 		ta.setFont(yellow);
 		ta.setForeground(Color.white);
 		f2.getContentPane().add(ta);
-		
+
 		f3 = new JFrame("리뷰 남기기");
 		f3.setLayout(null);
 		f3.setBounds(1120, 435, 315, 270);
-		
+
 		sc4 = new JTextField();
 		sc4.setBounds(5, 205, 265, 20);
 		f3.add(sc4);
 		f3.add(js2);
-		
-		f3background = new JPanel(){
+
+		f3background = new JPanel() {
 			{
 				setOpaque(false);
 			}
@@ -454,7 +408,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			}
 		};
 		f3background.setBounds(0, 0, 315, 270);
-		
+
 //		btn6 = new JButton();
 		btn6 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼43.png")) {
 			public void setBorder(Border border) {
@@ -468,7 +422,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f3.add(btn6);
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Connect();
 				Update();
 				Select2();
@@ -476,7 +430,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 
 			}
 		});
-		
+
 		f3.add(f3background);
 //		lb7 = new JLabel();
 //		lb7.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\full.png"));
@@ -513,9 +467,9 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if ( e.getSource() == p2tf) {
+		if (e.getSource() == p2tf) {
 			p2tf2.requestFocus();
-		} else if ( e.getSource() == p2tf2) {		
+		} else if (e.getSource() == p2tf2) {
 		}
 		if (e.getSource() == tf) {
 			tf2.requestFocus();
@@ -566,26 +520,27 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
-	
+
 	public void Update() {
 		try {
-			
+
 			String sql2 = "SELECT MAX(R_NUMBER) FROM SEOULREVIEW";
 			pstmt = con.prepareStatement(sql2);
 			rs = pstmt.executeQuery();
 			int Z = 0;
-			while ( rs.next()) {
-				
+			while (rs.next()) {
+
 				Z = rs.getInt("MAX(R_NUMBER)");
-				
+
 			}
 			J = sc4.getText();
-			
-	        String R_NUMBER = Integer.toString(Z + 1), REVIEW = J;                  /* 맥스값 + 10, Integer -> String */
+
+			String R_NUMBER = Integer.toString(Z + 1), REVIEW = J; /* 맥스값 + 10, Integer -> String */
 			int UNIQUE_NUMBER = I;
-	        String sql4 = "INSERT INTO SEOULREVIEW VALUES ('" + R_NUMBER + "','" + UNIQUE_NUMBER + "','" + REVIEW + "',sysdate)";
+			String sql4 = "INSERT INTO SEOULREVIEW VALUES ('" + R_NUMBER + "','" + UNIQUE_NUMBER + "','" + REVIEW
+					+ "',sysdate)";
 //			System.out.println(sql4);
-	        pstmt = con.prepareStatement(sql4);
+			pstmt = con.prepareStatement(sql4);
 			rs = pstmt.executeQuery();
 
 		} catch (Exception e) {
@@ -673,17 +628,17 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		}
 
 	}
-	
+
 	public void Select2() {
-		
+
 		model2.setNumRows(0);
 
 		try {
 
-				String sql3 = "SELECT REVIEW, N_DATE FROM SEOULREVIEW where UNIQUE_NUMBER = '" + I + "' ORDER BY R_NUMBER";
+			String sql3 = "SELECT REVIEW, N_DATE FROM SEOULREVIEW where UNIQUE_NUMBER = '" + I + "' ORDER BY R_NUMBER";
 //				System.out.println(sql);
-				pstmt = con.prepareStatement(sql3);
-				rs = pstmt.executeQuery();
+			pstmt = con.prepareStatement(sql3);
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				String REVIEW = rs.getString("REVIEW");
@@ -696,7 +651,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void mouseClicked(MouseEvent me) {
@@ -720,7 +675,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		ta.setText(H);
 
 		f2.setVisible(true);
-		
+
 		Select2();
 		f3.setVisible(true);
 
