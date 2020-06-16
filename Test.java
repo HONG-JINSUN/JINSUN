@@ -369,11 +369,13 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		
 //		table.getColumn("¿Ã∏ß").setCellRenderer(dtcr);
 		js = new JScrollPane(table);
+//		js.setLayout(null);
 		js.setBounds(500, 110, 520, 250);
 		f.getContentPane().add(js);
 		js.setOpaque(false);
 		js.getViewport().setOpaque(false);
-		js.setBorder(emptyBorder);
+//		js.setBorder(emptyBorder);
+//		table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
 		
 		p2 = new JPanel();
 		p2lb = new JLabel("∏Æ∫‰", JLabel.CENTER);
