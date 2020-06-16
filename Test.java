@@ -33,6 +33,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -353,6 +354,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			}
 		};
 		
+		Border emptyBorder = BorderFactory.createEmptyBorder(0,0,0,0);
+		
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		table = new JTable(model);
@@ -361,7 +364,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table.getColumn("이름").setPreferredWidth(300);
 		table.getColumn("분류").setCellRenderer(dtcr);
 		table.getColumn("고유번호").setCellRenderer(dtcr);
-		((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
+//		((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
 		table.setShowGrid(false);
 		
 //		table.getColumn("이름").setCellRenderer(dtcr);
@@ -370,6 +373,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f.getContentPane().add(js);
 		js.setOpaque(false);
 		js.getViewport().setOpaque(false);
+		js.setBorder(emptyBorder);
 		
 		p2 = new JPanel();
 		p2lb = new JLabel("리뷰", JLabel.CENTER);
@@ -392,7 +396,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table2.setShowGrid(false);
 		js2.setOpaque(false);
 		js2.getViewport().setOpaque(false);
-		((DefaultTableCellRenderer)table2.getDefaultRenderer(Object.class)).setOpaque(false);
+		js2.setBorder(emptyBorder);
+//		((DefaultTableCellRenderer)table2.getDefaultRenderer(Object.class)).setOpaque(false);
 
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
