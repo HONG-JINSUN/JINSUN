@@ -19,7 +19,7 @@ public class Login extends WindowAdapter implements ActionListener {
 	JButton b, b2, b3, b4, b5;
 	String I = "kosea";
 	String P = "2019a";
-	JLabel l, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9;
+	JLabel l, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10;
 
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -156,6 +156,8 @@ public class Login extends WindowAdapter implements ActionListener {
 		lb8.setBounds(10, 200, 70, 20);
 		lb9 = new JLabel("이메일", JLabel.LEFT);
 		lb9.setBounds(10, 250, 70, 20);
+		lb10 = new JLabel("", JLabel.LEFT);
+		lb10.setBounds(80, 300, 200, 20);
 
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,6 +189,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		f2.add(lb7);
 		f2.add(lb8);
 		f2.add(lb9);
+		f2.add(lb10);
 		f2.setVisible(true);
 
 	}
@@ -208,45 +211,61 @@ public class Login extends WindowAdapter implements ActionListener {
 
 	public void Add() {
 
-		try {
+		if (tf.getText().equals("") || tf2.getText().equals("") || tf3.getText().equals("") || tf4.getText().equals("")
+				|| tf5.getText().equals("")) {
 
-			String ID = tf.getText(), PW = tf2.getText(), NAME = tf3.getText(), P_NUMBER = tf4.getText(),
-					MAIL = tf5.getText();
-			String sql = "INSERT INTO ACCOUNT VALUES ('" + ID + "','" + PW + "','" + NAME + "','" + P_NUMBER + "','"
-					+ MAIL + "')";
+			lb10.setText("누락된 입력정보가 있습니다.");
+			lb10.setForeground(Color.red);
+
+		} else {
+
+			try {
+
+				String ID = tf.getText(), PW = tf2.getText(), NAME = tf3.getText(), P_NUMBER = tf4.getText(),
+						MAIL = tf5.getText();
+				String sql = "INSERT INTO ACCOUNT VALUES ('" + ID + "','" + PW + "','" + NAME + "','" + P_NUMBER + "','"
+						+ MAIL + "')";
 //			System.out.println(sql);
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
 
-			f2.dispose();
+				f2.dispose();
 
-		} catch (Exception e) {
-			System.out.println("아이디가 중복되었습니다.");
+			} catch (Exception e) {
+			}
 		}
 	}
 
 	public void Add2() {
 
-		try {
+		if (tf.getText().equals("")) {
 
-			String sql3 = "SELECT ID FROM ACCOUNT where ID ='" + tf.getText() + "'";
+			lb4.setText("아이디를 입력해주세요");
+			lb4.setForeground(Color.red);
+
+		} else {
+
+			try {
+
+				String sql3 = "SELECT ID FROM ACCOUNT where ID ='" + tf.getText() + "'";
 //				System.out.println(sql);
-			pstmt = con.prepareStatement(sql3);
-			rs = pstmt.executeQuery();
+				pstmt = con.prepareStatement(sql3);
+				rs = pstmt.executeQuery();
 
-			if (rs.next()) {
+				if (rs.next()) {
 
-				lb4.setText("중복된 아이디 입니다.");
-				lb4.setForeground(Color.red);
+					lb4.setText("중복된 아이디 입니다.");
+					lb4.setForeground(Color.red);
 
-			} else {
+				} else {
 
-				lb4.setText("사용가능한 아이디입니다.");
-				lb4.setForeground(Color.blue);
+					lb4.setText("사용가능한 아이디입니다.");
+					lb4.setForeground(Color.blue);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}
