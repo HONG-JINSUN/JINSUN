@@ -17,8 +17,6 @@ public class Login extends WindowAdapter implements ActionListener {
 	JFrame f, f2;
 	TextField id, pwd, tf, tf2, tf3, tf4, tf5;
 	JButton b, b2, b3, b4, b5;
-	String I = "kosea";
-	String P = "2019a";
 	JLabel l, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10;
 
 	Connection con = null;
@@ -98,25 +96,9 @@ public class Login extends WindowAdapter implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		id.getText();
-		pwd.getText();
 		if (e.getActionCommand().equals("접속")) {
-			if (id.getText().equals("")) {
-				lb3.setText("ID를 입력하세요.");
-				lb3.setForeground(Color.red);
-			} else if (pwd.getText().equals("")) {
-				lb3.setText("비밀번호를 입력하세요.");
-				lb3.setForeground(Color.red);
-			} else if (id.getText().equals(I) && pwd.getText().equals(P)) {
 
-				Test t = new Test();
-				f.dispose();
-
-			} else {
-
-				lb3.setText("아이디와 비밀번호를 확인해주세요.");
-				lb3.setForeground(Color.red);
-			}
+			Match();
 
 		}
 	}
@@ -171,6 +153,14 @@ public class Login extends WindowAdapter implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 
 				Add();
+
+			}
+		});
+
+		b4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				f2.dispose();
 
 			}
 		});
@@ -232,6 +222,45 @@ public class Login extends WindowAdapter implements ActionListener {
 				f2.dispose();
 
 			} catch (Exception e) {
+			}
+		}
+	}
+
+	public void Match() {
+
+		id.getText();
+		pwd.getText();
+
+		if (id.getText().equals("")) {
+			lb3.setText("ID를 입력하세요.");
+			lb3.setForeground(Color.red);
+		} else if (pwd.getText().equals("")) {
+			lb3.setText("비밀번호를 입력하세요.");
+			lb3.setForeground(Color.red);
+		} else {
+
+			try {
+
+				String sql3 = "SELECT ID, PW FROM ACCOUNT where ID ='" + id.getText() + "' AND PW = '" + pwd.getText()
+						+ "'";
+//			System.out.println(sql3);
+				pstmt = con.prepareStatement(sql3);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+
+					Test t = new Test();
+					f.dispose();
+
+				} else {
+
+					lb3.setText("아이디와 비밀번호를 확인해주세요.");
+					lb3.setForeground(Color.red);
+
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
