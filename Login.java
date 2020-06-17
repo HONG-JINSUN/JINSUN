@@ -1,27 +1,38 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Login extends WindowAdapter implements ActionListener {
-	static Frame f;
-	static JTextField id, pwd;
-	static JButton b;
-	static String I = "kosea";
-	static String P = "2019a";
-	static JLabel l, lb, lb2, lb3;
+	JFrame f, f2;
+	TextField id, pwd, tf, tf2, tf3, tf4, tf5;
+	JButton b, b2, b3, b4, b5;
+	String I = "kosea";
+	String P = "2019a";
+	JLabel l, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9;
+
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
 	public void windowClosing(WindowEvent e) {
 		System.exit(0);
 	}
 
 	public void startFrame() {
-		f = new Frame("로그인");
+
+		Connect();
+		f = new JFrame("로그인");
 		b = new JButton("접속") {
 			public void setBorder(Border border) {
 
@@ -31,14 +42,24 @@ public class Login extends WindowAdapter implements ActionListener {
 		b.setBorderPainted(false);
 		b.setContentAreaFilled(false);
 		b.setFocusPainted(false);
-		b.setBounds(185, 271, 40, 20);
-		f.setBounds(230, 80, 410, 500);
+		b.setBounds(245, 271, 40, 20);
+		f.setBounds(230, 80, 425, 535);
 		f.setLayout(null);
 		b.addActionListener(this);
 		f.addWindowListener(this);
 		l = new JLabel();
 		l.setBounds(0, 0, 410, 500);
 		l.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\Login.png"));
+		b5 = new JButton("회원가입") {
+			public void setBorder(Border border) {
+
+			}
+		};
+		b5.setForeground(Color.white);
+		b5.setBorderPainted(false);
+		b5.setContentAreaFilled(false);
+		b5.setFocusPainted(false);
+		b5.setBounds(100, 271, 100, 20);
 
 		lb = new JLabel("ID : ", JLabel.RIGHT);
 		lb2 = new JLabel("Password : ", JLabel.RIGHT);
@@ -50,10 +71,11 @@ public class Login extends WindowAdapter implements ActionListener {
 		lb3.setBounds(185, 235, 190, 20);
 		lb3.setBackground(Color.black);
 
-		id = new JTextField(10);
+		id = new TextField(10);
 		id.setBounds(185, 165, 150, 20);
-		pwd = new JTextField(10);
+		pwd = new TextField(10);
 		pwd.setBounds(185, 205, 150, 20);
+		pwd.setEchoChar('*');
 
 		f.add(lb);
 		f.add(id);
@@ -62,7 +84,16 @@ public class Login extends WindowAdapter implements ActionListener {
 		f.add(b);
 		f.add(l);
 		l.add(lb3);
+		l.add(b5);
 		f.setVisible(true);
+
+		b5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Account();
+
+			}
+		});
 
 	}
 
@@ -77,7 +108,7 @@ public class Login extends WindowAdapter implements ActionListener {
 				lb3.setText("비밀번호를 입력하세요.");
 				lb3.setForeground(Color.red);
 			} else if (id.getText().equals(I) && pwd.getText().equals(P)) {
-				
+
 				Test t = new Test();
 				f.dispose();
 
@@ -86,7 +117,138 @@ public class Login extends WindowAdapter implements ActionListener {
 				lb3.setText("아이디와 비밀번호를 확인해주세요.");
 				lb3.setForeground(Color.red);
 			}
+
 		}
+	}
+
+	public void Account() {
+
+		f2 = new JFrame("회원가입");
+		f2.setLayout(null);
+		f2.setBounds(650, 80, 325, 535);
+
+		tf = new TextField();
+		tf.setBounds(80, 50, 120, 20);
+		b2 = new JButton("중복확인");
+		b2.setBounds(200, 50, 100, 20);
+		tf2 = new TextField();
+		tf2.setBounds(80, 100, 120, 20);
+		tf2.setEchoChar('*');
+		tf3 = new TextField();
+		tf3.setBounds(80, 150, 120, 20);
+		tf4 = new TextField();
+		tf4.setBounds(80, 200, 120, 20);
+		tf5 = new TextField();
+		tf5.setBounds(80, 250, 200, 20);
+		b3 = new JButton("확인");
+		b3.setBounds(50, 400, 100, 20);
+		b4 = new JButton("취소");
+		b4.setBounds(150, 400, 100, 20);
+		lb4 = new JLabel();
+		lb4.setBounds(80, 75, 150, 20);
+		lb5 = new JLabel("아이디", JLabel.LEFT);
+		lb5.setBounds(10, 50, 70, 20);
+		lb6 = new JLabel("비밀번호", JLabel.LEFT);
+		lb6.setBounds(10, 100, 70, 20);
+		lb7 = new JLabel("이름", JLabel.LEFT);
+		lb7.setBounds(10, 150, 70, 20);
+		lb8 = new JLabel("전화번호", JLabel.LEFT);
+		lb8.setBounds(10, 200, 70, 20);
+		lb9 = new JLabel("이메일", JLabel.LEFT);
+		lb9.setBounds(10, 250, 70, 20);
+
+		b2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Add2();
+
+			}
+		});
+
+		b3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Add();
+
+			}
+		});
+
+		f2.add(b2);
+		f2.add(tf);
+		f2.add(tf2);
+		f2.add(tf3);
+		f2.add(tf4);
+		f2.add(tf5);
+		f2.add(b3);
+		f2.add(b4);
+		f2.add(lb4);
+		f2.add(lb5);
+		f2.add(lb6);
+		f2.add(lb7);
+		f2.add(lb8);
+		f2.add(lb9);
+		f2.setVisible(true);
+
+	}
+
+	public void Connect() {
+
+		String url = "jdbc:oracle:thin:@localhost:1521/orcl";
+		String user = "kosea";
+		String password = "kosea2019a";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection(url, user, password);
+//			System.out.println("접속");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void Add() {
+
+		try {
+
+			String ID = tf.getText(), PW = tf2.getText(), NAME = tf3.getText(), P_NUMBER = tf4.getText(),
+					MAIL = tf5.getText();
+			String sql = "INSERT INTO ACCOUNT VALUES ('" + ID + "','" + PW + "','" + NAME + "','" + P_NUMBER + "','"
+					+ MAIL + "')";
+//			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			f2.dispose();
+
+		} catch (Exception e) {
+			System.out.println("아이디가 중복되었습니다.");
+		}
+	}
+
+	public void Add2() {
+
+		try {
+
+			String sql3 = "SELECT ID FROM ACCOUNT where ID ='" + tf.getText() + "'";
+//				System.out.println(sql);
+			pstmt = con.prepareStatement(sql3);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+
+				lb4.setText("중복된 아이디 입니다.");
+				lb4.setForeground(Color.red);
+
+			} else {
+
+				lb4.setText("사용가능한 아이디입니다.");
+				lb4.setForeground(Color.blue);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) {
