@@ -27,8 +27,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	JLabel p2lb, p2lb2;
 	JTextField p2tf, p2tf2;
 
-	String F = "";
-	String G = "";
+	static String F = "";
+	static String G = "";
 	String H = "";
 	int I = 0;
 	String J = "";
@@ -228,15 +228,17 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!F.equals("")) {
-					try {
-						String url = "https://map.naver.com/v5/search/";
-						url += URLEncoder.encode(G, "UTF-8");
-						Desktop.getDesktop().browse(new URI(url));
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				}
+//				if (!F.equals("")) {
+//					try {
+//						String url = "https://map.naver.com/v5/search/";
+//						url += URLEncoder.encode(G, "UTF-8");
+//						Desktop.getDesktop().browse(new URI(url));
+//					} catch (Exception e1) {
+//						e1.printStackTrace();
+//					}
+//				}
+				
+				Map m = new Map();
 			}
 		});
 
@@ -343,7 +345,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			}
 
 		};
-
+		
 		table2 = new JTable(model2);
 		table2.getColumn("¸®ºä").setPreferredWidth(240);
 		table2.getColumn("¸®ºä").setCellRenderer(dtcr);
