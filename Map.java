@@ -6,7 +6,7 @@ public class Map {
 	
 	String A = Test.G;
 	String B = Test.F;
-	
+
 	Map(){
 		
 		if (!B.equals("")) {
