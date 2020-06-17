@@ -12,9 +12,9 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	JTable table, table2;
 	JScrollPane js, js2;
 	Object ob[][] = new Object[0][6];
-	Object ob2[][] = new Object[0][2];
+	Object ob2[][] = new Object[0][3];
 	String header[] = { "분류", "고유번호", "이름", "전화번호", "주소", "키워드" };
-	String header2[] = { "리뷰", "날짜" };
+	String header2[] = { "리뷰", "날짜", "아이디" };
 	JPanel P, p2, background, f3background;
 	JLabel lb, lb2, lb3, lb4, lb5, lb6, lb7;
 	JTextField tf, tf2, tf3, tf4, tf5, tf6, sc, sc2, sc3, sc4;
@@ -24,8 +24,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	JCheckBox cb, cb2, cb3, cb4;
 	Choice ci, ci2;
 	JTextArea ta;
-	JLabel p2lb, p2lb2;
-	JTextField p2tf, p2tf2;
+	JLabel p2lb, p2lb2, p2lb3;
+	JTextField p2tf, p2tf2, p2tf3;
 
 	static String F = "";
 	static String G = "";
@@ -237,7 +237,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 //						e1.printStackTrace();
 //					}
 //				}
-				
+
 				Map m = new Map();
 			}
 		});
@@ -338,17 +338,21 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		p2tf = new JTextField();
 		p2lb2 = new JLabel("날짜", JLabel.CENTER);
 		p2tf2 = new JTextField();
-		p2.setLayout(new GridLayout(2, 3));
+		p2lb3 = new JLabel("아이디", JLabel.CENTER);
+		p2tf3 = new JTextField();
+		p2.setLayout(new GridLayout(3, 4));
 		model2 = new DefaultTableModel(ob2, header2) {
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 
 		};
-		
+
 		table2 = new JTable(model2);
-		table2.getColumn("리뷰").setPreferredWidth(240);
+		table2.getColumn("리뷰").setPreferredWidth(200);
 		table2.getColumn("리뷰").setCellRenderer(dtcr);
+		table2.getColumn("날짜").setPreferredWidth(100);
+		table2.getColumn("아이디").setCellRenderer(dtcr);
 		js2 = new JScrollPane(table2);
 		js2.setBounds(5, 5, 290, 195);
 		table2.setShowGrid(false);
@@ -472,6 +476,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		if (e.getSource() == p2tf) {
 			p2tf2.requestFocus();
 		} else if (e.getSource() == p2tf2) {
+		} else if (e.getSource() == p2tf3) {
+
 		}
 		if (e.getSource() == tf) {
 			tf2.requestFocus();
@@ -491,7 +497,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 				return;
 			}
 			Object data[] = { tf.getText(), tf2.getText(), tf3.getText(), tf4.getText(), tf5.getText(), tf6.getText() };
-			Object data2[] = { p2tf.getText(), p2tf2.getText() };
+			Object data2[] = { p2tf.getText(), p2tf2.getText(), p2tf3.getText() };
 			model.addRow(data);
 			model2.addRow(data2);
 			tf.setText("");
@@ -503,6 +509,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			tf.requestFocus();
 			p2tf.setText("");
 			p2tf2.setText("");
+			p2tf3.setText("");
 			p2tf.requestFocus();
 		}
 
@@ -540,8 +547,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			String R_NUMBER = Integer.toString(Z + 1), REVIEW = J; /* 맥스값 + 10, Integer -> String */
 			int UNIQUE_NUMBER = I;
 			String sql4 = "INSERT INTO SEOULREVIEW VALUES ('" + R_NUMBER + "','" + UNIQUE_NUMBER + "','" + REVIEW
-					+ "',sysdate)";
-//			System.out.println(sql4);
+					+ "', sysdate," + "'" + Login.A + "')";
+			System.out.println(sql4);
 			pstmt = con.prepareStatement(sql4);
 			rs = pstmt.executeQuery();
 
@@ -637,7 +644,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 
 		try {
 
-			String sql3 = "SELECT REVIEW, N_DATE FROM SEOULREVIEW where UNIQUE_NUMBER = '" + I + "' ORDER BY R_NUMBER";
+			String sql3 = "SELECT REVIEW, N_DATE, ID FROM SEOULREVIEW where UNIQUE_NUMBER = '" + I
+					+ "' ORDER BY R_NUMBER";
 //				System.out.println(sql);
 			pstmt = con.prepareStatement(sql3);
 			rs = pstmt.executeQuery();
@@ -645,8 +653,9 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 			while (rs.next()) {
 				String REVIEW = rs.getString("REVIEW");
 				String N_DATE = rs.getString("N_DATE");
+				String ID = rs.getString("ID");
 
-				Object data2[] = { REVIEW, N_DATE };
+				Object data2[] = { REVIEW, N_DATE, ID };
 				model2.addRow(data2);
 
 			}

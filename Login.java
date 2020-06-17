@@ -18,6 +18,7 @@ public class Login extends WindowAdapter implements ActionListener {
 	TextField id, pwd, tf, tf2, tf3, tf4, tf5;
 	JButton b, b2, b3, b4, b5;
 	JLabel l, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10;
+	static String A = "";
 
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -248,7 +249,8 @@ public class Login extends WindowAdapter implements ActionListener {
 				rs = pstmt.executeQuery();
 
 				if (rs.next()) {
-
+					
+					A = id.getText();
 					Test t = new Test();
 					f.dispose();
 
