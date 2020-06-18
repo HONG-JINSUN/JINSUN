@@ -38,8 +38,8 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	Image img = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\info.png").getImage(); // 이미지 선언
-	Image review = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\review.png").getImage(); // 이미지 선언
+	Image img = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\info.png").getImage(); // 이미지 선언
+	Image review = new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\review.png").getImage(); // 이미지 선언
 
 	Test() {
 
@@ -163,7 +163,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		sc3.setForeground(Color.white);
 
 //		btn = new JButton();
-		btn = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
+		btn = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\버튼2.png")) {
 			public void setBorder(Border border) {
 
 			}
@@ -174,7 +174,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn.setFocusPainted(false);
 		btn.setForeground(Color.white);
 //		btn2 = new JButton();
-		btn2 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼2.png")) {
+		btn2 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\버튼2.png")) {
 			public void setBorder(Border border) {
 
 			}
@@ -185,7 +185,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn2.setFocusPainted(false);
 		btn2.setForeground(Color.white);
 //		btn3 = new JButton();
-		btn3 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼32.png")) {
+		btn3 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\버튼32.png")) {
 			public void setBorder(Border border) {
 
 			}
@@ -195,7 +195,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		btn3.setContentAreaFilled(false);
 		btn3.setFocusPainted(false);
 		btn3.setForeground(Color.white);
-		btn4 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼42.png")) {
+		btn4 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\버튼42.png")) {
 			public void setBorder(Border border) {
 
 			}
@@ -351,7 +351,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		table2 = new JTable(model2);
 		table2.getColumn("리뷰").setPreferredWidth(200);
 		table2.getColumn("리뷰").setCellRenderer(dtcr);
-		table2.getColumn("날짜").setPreferredWidth(100);
+		table2.getColumn("날짜").setPreferredWidth(90);
 		table2.getColumn("아이디").setCellRenderer(dtcr);
 		js2 = new JScrollPane(table2);
 		js2.setBounds(5, 5, 290, 195);
@@ -362,7 +362,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 //		((DefaultTableCellRenderer)table2.getDefaultRenderer(Object.class)).setOpaque(false);
 
 		JLabel lblNewLabel = new JLabel();
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\BackGround2.png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\BackGround2.png"));
 		lblNewLabel.setBounds(0, 0, 1080, 620);
 		f.getContentPane().add(lblNewLabel);
 
@@ -416,7 +416,7 @@ public class Test extends JFrame implements ActionListener, MouseListener {
 		f3background.setBounds(0, 0, 315, 270);
 
 //		btn6 = new JButton();
-		btn6 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\버튼43.png")) {
+		btn6 = new JButton(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\버튼43.png")) {
 			public void setBorder(Border border) {
 
 			}

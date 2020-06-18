@@ -48,7 +48,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		f.addWindowListener(this);
 		l = new JLabel();
 		l.setBounds(0, 0, 410, 500);
-		l.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\Login.png"));
+		l.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\Login.png"));
 		b5 = new JButton("회원가입") {
 			public void setBorder(Border border) {
 
@@ -108,59 +108,59 @@ public class Login extends WindowAdapter implements ActionListener {
 
 		f2 = new JFrame("회원가입");
 		f2.setLayout(null);
-		f2.setBounds(650, 80, 325, 460);
+		f2.setBounds(650, 80, 340, 495);
 		l2 = new JLabel();
 		l2.setBounds(0, 0, 325, 460);
-		l2.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\Account.png"));
+		l2.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\Account.png"));
 
 		tf = new TextField();
-		tf.setBounds(100, 50, 120, 20);
+		tf.setBounds(105, 80, 120, 20);
 		b2 = new JButton("중복");
-		b2.setBounds(225, 50, 60, 20);
+		b2.setBounds(240, 80, 60, 20);
 		b2.setForeground(Color.white);
 		b2.setBorderPainted(false);
 		b2.setContentAreaFilled(false);
 		b2.setFocusPainted(false);
 		tf2 = new TextField();
-		tf2.setBounds(100, 100, 120, 20);
+		tf2.setBounds(105, 130, 120, 20);
 		tf2.setEchoChar('*');
 		tf3 = new TextField();
-		tf3.setBounds(100, 150, 80, 20);
+		tf3.setBounds(105, 180, 80, 20);
 		tf4 = new TextField();
-		tf4.setBounds(100, 200, 100, 20);
+		tf4.setBounds(105, 230, 100, 20);
 		tf5 = new TextField();
-		tf5.setBounds(100, 250, 150, 20);
+		tf5.setBounds(105, 280, 150, 20);
 		b3 = new JButton("확인");
-		b3.setBounds(70, 350, 80, 20);
+		b3.setBounds(75, 380, 80, 20);
 		b3.setForeground(Color.white);
 		b3.setBorderPainted(false);
 		b3.setContentAreaFilled(false);
 		b3.setFocusPainted(false);
 		b4 = new JButton("취소");
-		b4.setBounds(160, 350, 80, 20);
+		b4.setBounds(165, 380, 80, 20);
 		b4.setForeground(Color.white);
 		b4.setBorderPainted(false);
 		b4.setContentAreaFilled(false);
 		b4.setFocusPainted(false);
 		lb4 = new JLabel();
-		lb4.setBounds(100, 75, 150, 20);
+		lb4.setBounds(105, 105, 150, 20);
 		lb5 = new JLabel("아이디", JLabel.LEFT);
 		lb5.setForeground(Color.white);
-		lb5.setBounds(40, 50, 70, 20);
+		lb5.setBounds(45, 80, 70, 20);
 		lb6 = new JLabel("비밀번호", JLabel.LEFT);
-		lb6.setBounds(40, 100, 70, 20);
+		lb6.setBounds(45, 130, 70, 20);
 		lb6.setForeground(Color.white);
 		lb7 = new JLabel("이름", JLabel.LEFT);
-		lb7.setBounds(40, 150, 70, 20);
+		lb7.setBounds(45, 180, 70, 20);
 		lb7.setForeground(Color.white);
 		lb8 = new JLabel("전화번호", JLabel.LEFT);
-		lb8.setBounds(40, 200, 70, 20);
+		lb8.setBounds(45, 230, 70, 20);
 		lb8.setForeground(Color.white);
 		lb9 = new JLabel("이메일", JLabel.LEFT);
-		lb9.setBounds(40, 250, 70, 20);
+		lb9.setBounds(45, 280, 70, 20);
 		lb9.setForeground(Color.white);
 		lb10 = new JLabel("", JLabel.LEFT);
-		lb10.setBounds(80, 300, 200, 20);
+		lb10.setBounds(85, 330, 200, 20);
 		lb10.setForeground(Color.white);
 
 		b2.addActionListener(new ActionListener() {
