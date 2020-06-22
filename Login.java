@@ -16,9 +16,10 @@ import javax.swing.JPanel;
 public class Login extends WindowAdapter implements ActionListener {
 	JFrame f, f2;
 	TextField id, pwd, tf, tf2, tf3, tf4, tf5;
-	JButton b, b2, b3, b4, b5;
-	JLabel l, l2, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10;
+	JButton b, b2, b3, b4, b5, b6;
+	JLabel l, l2, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10, lb11, lb12;
 	static String A = "";
+	Dialog info;
 
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -162,6 +163,13 @@ public class Login extends WindowAdapter implements ActionListener {
 		lb10 = new JLabel("", JLabel.LEFT);
 		lb10.setBounds(85, 330, 200, 20);
 		lb10.setForeground(Color.white);
+		lb11 = new JLabel("ex) OOOOO@naver.com", JLabel.LEFT);
+		lb11.setBounds(105, 300, 200, 20);
+		lb11.setForeground(Color.white);
+		lb12 = new JLabel("", JLabel.LEFT);
+		lb12.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\화원가입 완료.png"));
+		lb12.setBounds(0, 0, 250, 215);
+		lb12.setForeground(Color.white);
 
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,6 +194,26 @@ public class Login extends WindowAdapter implements ActionListener {
 
 			}
 		});
+		
+		info = new Dialog(f2, "", true);
+		info.setSize(250, 140);
+		info.setLocation(695, 230);
+		info.setLayout(null);
+		b6 = new JButton();
+		b6.setBounds(0, 0, 250, 150);
+		
+		b6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				info.dispose();
+				
+			}
+		});
+		b6.setBorderPainted(false);
+		b6.setContentAreaFilled(false);
+		b6.setFocusPainted(false);
+		
+		info.add(b6);
 
 		f2.add(b2);
 		f2.add(tf);
@@ -203,7 +231,10 @@ public class Login extends WindowAdapter implements ActionListener {
 		f2.add(lb9);
 		f2.add(lb10);
 		f2.add(l2);
+		l2.add(lb11);
+		info.add(lb12);
 		f2.setVisible(true);
+//		info.setVisible(true);
 
 	}
 
@@ -241,7 +272,9 @@ public class Login extends WindowAdapter implements ActionListener {
 //			System.out.println(sql);
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
-
+				
+				info.setVisible(true);
+				
 				f2.dispose();
 
 			} catch (Exception e) {
