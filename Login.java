@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 
 public class Login extends WindowAdapter implements ActionListener {
 	JFrame f, f2;
-	TextField id, pwd, tf, tf2, tf3, tf4, tf5;
+	JTextField id, pwd, tf, tf2, tf3, tf4, tf5, tf6;
 	JButton b, b2, b3, b4, b5, b6;
-	JLabel l, l2, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10, lb11, lb12;
+	JLabel l, l2, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb11, lb12;
 	static String A = "";
 	Dialog info;
 
@@ -71,11 +71,11 @@ public class Login extends WindowAdapter implements ActionListener {
 		lb3.setBounds(185, 235, 190, 20);
 		lb3.setBackground(Color.black);
 
-		id = new TextField(10);
+		id = new JTextField(10);
 		id.setBounds(185, 165, 150, 20);
-		pwd = new TextField(10);
+		pwd = new JTextField(10);
 		pwd.setBounds(185, 205, 150, 20);
-		pwd.setEchoChar('*');
+//		pwd.setEchoChar('*');
 
 		f.add(lb);
 		f.add(id);
@@ -114,7 +114,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		l2.setBounds(0, 0, 325, 460);
 		l2.setIcon(new ImageIcon("C:\\Users\\JINSUN\\Desktop\\중간 프로젝트\\Account.png"));
 
-		tf = new TextField();
+		tf = new JTextField();
 		tf.setBounds(105, 80, 120, 20);
 		b2 = new JButton("중복");
 		b2.setBounds(240, 80, 60, 20);
@@ -122,14 +122,51 @@ public class Login extends WindowAdapter implements ActionListener {
 		b2.setBorderPainted(false);
 		b2.setContentAreaFilled(false);
 		b2.setFocusPainted(false);
-		tf2 = new TextField();
+		tf2 = new JTextField();
 		tf2.setBounds(105, 130, 120, 20);
-		tf2.setEchoChar('*');
-		tf3 = new TextField();
+//		tf2.setEchoChar('*');
+		tf3 = new JTextField();
 		tf3.setBounds(105, 180, 80, 20);
-		tf4 = new TextField();
-		tf4.setBounds(105, 230, 100, 20);
-		tf5 = new TextField();
+		tf4 = new JTextField();
+		tf4.setBounds(105, 230, 200, 20);
+		tf6 = new JTextField() {
+			public void setBorder(Border border) {
+
+			}
+		};
+		tf6.setOpaque(false);
+		tf6.setBounds(15, 330, 300, 20);
+		tf6.setBackground(Color.white);
+		tf6.setHorizontalAlignment(JTextField.CENTER);
+		tf6.setEditable(false);
+
+		tf4.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+				if (e.getKeyChar() <'0' || e.getKeyChar() > '9') {
+					e.consume();
+					
+					tf6.setText("숫자만 입력가능합니다.");
+					tf6.setForeground(Color.red);
+				}
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}});
+		tf5 = new JTextField();
 		tf5.setBounds(105, 280, 150, 20);
 		b3 = new JButton("확인");
 		b3.setBounds(75, 380, 80, 20);
@@ -160,9 +197,9 @@ public class Login extends WindowAdapter implements ActionListener {
 		lb9 = new JLabel("이메일", JLabel.LEFT);
 		lb9.setBounds(45, 280, 70, 20);
 		lb9.setForeground(Color.white);
-		lb10 = new JLabel("", JLabel.LEFT);
-		lb10.setBounds(85, 330, 200, 20);
-		lb10.setForeground(Color.white);
+//		lb10 = new JLabel("", JLabel.LEFT);
+//		lb10.setBounds(85, 330, 200, 20);
+//		lb10.setForeground(Color.white);
 		lb11 = new JLabel("ex) OOOOO@naver.com", JLabel.LEFT);
 		lb11.setBounds(105, 300, 200, 20);
 		lb11.setForeground(Color.white);
@@ -229,7 +266,8 @@ public class Login extends WindowAdapter implements ActionListener {
 		f2.add(lb7);
 		f2.add(lb8);
 		f2.add(lb9);
-		f2.add(lb10);
+//		f2.add(lb10);
+		f2.add(tf6);
 		f2.add(l2);
 		l2.add(lb11);
 		info.add(lb12);
@@ -258,10 +296,36 @@ public class Login extends WindowAdapter implements ActionListener {
 		if (tf.getText().equals("") || tf2.getText().equals("") || tf3.getText().equals("") || tf4.getText().equals("")
 				|| tf5.getText().equals("")) {
 
-			lb10.setText("누락된 입력정보가 있습니다.");
-			lb10.setForeground(Color.red);
+			tf6.setText("누락된 입력정보가 있습니다.");
+			tf6.setForeground(Color.red);
 
-		} else {
+		} else if (tf.getText().length() < 5 || tf.getText().length() >12 ) {
+			
+			tf6.setText("생성 가능한 아이디의 길이는 5 ~ 12자입니다.");
+			tf6.setForeground(Color.red);
+			
+		} else if ( tf2.getText().length() < 10 ) {
+			
+			tf6.setText("비밀번호를 10자 이상 입력해주세요.");
+			tf6.setForeground(Color.red);
+			
+		} else if (tf3.getText().length() < 3) {
+			
+			tf6.setText("이름을 2자 이상 입력해주세요.");
+			tf6.setForeground(Color.red);
+			
+		} else if (!( tf4.getText().length() == 11)) {
+			
+			tf6.setText("전화번호 형식을 확인해주세요.");
+			tf6.setForeground(Color.red);
+		}
+		else if (!tf5.getText().contains("@")) {
+			
+			tf6.setText("이메일 형식을 확인해주세요.");
+			tf6.setForeground(Color.red);
+			
+		}
+		else {
 
 			try {
 
@@ -326,8 +390,8 @@ public class Login extends WindowAdapter implements ActionListener {
 
 		if (tf.getText().equals("")) {
 
-			lb4.setText("아이디를 입력해주세요");
-			lb4.setForeground(Color.red);
+			tf6.setText("아이디를 입력해주세요");
+			tf6.setForeground(Color.red);
 
 		} else {
 
@@ -340,13 +404,13 @@ public class Login extends WindowAdapter implements ActionListener {
 
 				if (rs.next()) {
 
-					lb4.setText("중복된 아이디 입니다.");
-					lb4.setForeground(Color.red);
+					tf6.setText("중복된 아이디 입니다.");
+					tf6.setForeground(Color.red);
 
 				} else {
 
-					lb4.setText("사용가능한 아이디입니다.");
-					lb4.setForeground(Color.blue);
+					tf6.setText("사용가능한 아이디입니다.");
+					tf6.setForeground(Color.blue);
 				}
 
 			} catch (Exception e) {
