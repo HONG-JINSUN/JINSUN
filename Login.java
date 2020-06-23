@@ -12,14 +12,16 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 public class Login extends WindowAdapter implements ActionListener {
 	JFrame f, f2;
-	JTextField id, pwd, tf, tf2, tf3, tf4, tf5, tf6;
+	JTextField id, tf, tf3, tf4, tf5, tf6;
 	JButton b, b2, b3, b4, b5, b6;
 	JLabel l, l2, lb, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb11, lb12;
 	static String A = "";
 	Dialog info;
+	JPasswordField tf2, pwd;
 
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -73,9 +75,9 @@ public class Login extends WindowAdapter implements ActionListener {
 
 		id = new JTextField(10);
 		id.setBounds(185, 165, 150, 20);
-		pwd = new JTextField(10);
+		pwd = new JPasswordField(10);
 		pwd.setBounds(185, 205, 150, 20);
-//		pwd.setEchoChar('*');
+		pwd.setEchoChar('*');
 
 		f.add(lb);
 		f.add(id);
@@ -122,9 +124,9 @@ public class Login extends WindowAdapter implements ActionListener {
 		b2.setBorderPainted(false);
 		b2.setContentAreaFilled(false);
 		b2.setFocusPainted(false);
-		tf2 = new JTextField();
+		tf2 = new JPasswordField();
 		tf2.setBounds(105, 130, 120, 20);
-//		tf2.setEchoChar('*');
+		tf2.setEchoChar('*');
 		tf3 = new JTextField();
 		tf3.setBounds(105, 180, 80, 20);
 		tf4 = new JTextField();
@@ -191,7 +193,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		lb7 = new JLabel("이름", JLabel.LEFT);
 		lb7.setBounds(45, 180, 70, 20);
 		lb7.setForeground(Color.white);
-		lb8 = new JLabel("전화번호", JLabel.LEFT);
+		lb8 = new JLabel("휴대전화", JLabel.LEFT);
 		lb8.setBounds(45, 230, 70, 20);
 		lb8.setForeground(Color.white);
 		lb9 = new JLabel("이메일", JLabel.LEFT);
