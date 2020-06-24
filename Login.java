@@ -130,7 +130,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		tf3 = new JTextField();
 		tf3.setBounds(105, 180, 80, 20);
 		tf4 = new JTextField();
-		tf4.setBounds(105, 230, 200, 20);
+		tf4.setBounds(105, 230, 100, 20);
 		tf6 = new JTextField() {
 			public void setBorder(Border border) {
 
@@ -311,7 +311,7 @@ public class Login extends WindowAdapter implements ActionListener {
 			tf6.setText("비밀번호를 10자 이상 입력해주세요.");
 			tf6.setForeground(Color.red);
 			
-		} else if (tf3.getText().length() < 3) {
+		} else if (tf3.getText().length() < 2) {
 			
 			tf6.setText("이름을 2자 이상 입력해주세요.");
 			tf6.setForeground(Color.red);
